@@ -1,0 +1,7 @@
+{
+  "name": "mapi-restaurant",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
