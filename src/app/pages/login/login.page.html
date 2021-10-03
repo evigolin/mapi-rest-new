@@ -1,0 +1,83 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<app-header-language></app-header-language>
+<app-network></app-network>
+<ion-content>
+  <div class="form-center pdl-30 pdr-30">
+    <div class="background-image flex-row flex-ali-center flex-jus-center">
+    </div>
+    <div class="wrapper-form pdl-10 pdr-10">
+      <div class="mgt-70 mgb-20">
+        <br>
+        <div class="logo show">
+          <img class="icon-login" src="{{'assets/icon/ico_play.png' }}">
+          <img class="logo-login" src="{{'assets/imgs/logo.png' }}">
+        </div>
+
+      </div>
+      <div class="wrapp-form mgt--50 show" class="ion-padding">
+        <form [formGroup]="formLogin" (submit)="loginUser()">
+
+          <ion-item class="ion-text-center mgt-40 fw-400 show">
+
+            <ion-input #email formControlName="email" placeholder="{{'Email' | translate}}" type="email"
+              [class.invalid]="!formLogin.controls.email.valid && formLogin.controls.email.dirty" class="show">
+            </ion-input>
+          </ion-item>
+
+          <br>
+
+          <ion-item class="ion-text-center show">
+            <ion-input #password formControlName="password" placeholder="{{'password' | translate}}" type="password"
+              [class.invalid]="!formLogin.controls.password.valid && formLogin.controls.password.dirty" class="show">
+            </ion-input>
+          </ion-item>
+
+          <br>
+
+          <ion-row style="text-align: end;margin-bottom: 1rem;">
+            <ion-col>
+              <a style="color: white;" (click)="forgotPassword ()">
+                <ion-text style="font-size: 15px;"> {{'Recover_password' | translate}} </ion-text>
+              </a>
+            </ion-col>
+          </ion-row>
+
+          <br>
+
+          <ion-button expand="block" class="fw-600 mgt-20 spacing1 ani-bottom-to-top shadow-0 show button-login"
+            type="submit">
+            {{'LOG_IN' | translate}}
+          </ion-button>
+          <!-- 
+          <div class="mgt-30 ion-text-center show">
+            <ion-label class="fw-300 show ion-text-white" color="medium">O PUEDES INICIAL CON!</ion-label>
+            <ion-button size="block" color="medium"
+              class="uppercase show ion-text-center fw-600 spacing1 ani-bottom-to-top shadow-0 icon-face"
+              [disabled]="true">
+              <ion-icon class="show" name="logo-facebook"></ion-icon>
+
+            </ion-button>
+          </div> -->
+        </form>
+        <br>
+        <div class="mgb-10 ion-text-center">
+          <br>
+          <ion-label style="letter-spacing: 1px;" class="label-register show ion-text-white" color="medium">
+            {{'NOT_YET_A_MEMBER?' | translate}}</ion-label>
+          <ion-button type="button" fill="clear" size="block" color="white"
+            class="capitalize fs-16 txt3 pull-right pdr-0 show button-login" [routerLink]="'/register'"
+            routerDirection="root">
+            {{'REGISTER_NOW' | translate}}
+          </ion-button>
+        </div>
+
+        <br>
+      </div>
+    </div>
+  </div>
+</ion-content>

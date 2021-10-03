@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar style="padding: 0.5rem;">
+    <ion-row>
+      <ion-col size-sm="6" size-md="4" size-lg="3" size-xl="3">
+        <ion-item class="item-login" lines="none">
+          <ion-label class="label">{{'Language' | translate}}</ion-label>
+          <ion-select [(ngModel)]="selected" (ionChange)="languageSelected($event)" okText="{{'Ok' | translate}}"
+            cancelText="{{'Cancel' | translate}}" style="max-width: 100%;margin-inline-end: 0em;color: white;">
+            <ion-select-option *ngFor="let language of languages" [value]="language.value">
+              {{language?.text | translate}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>

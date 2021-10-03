@@ -1,0 +1,1074 @@
+
+{
+  "English": "English",
+  "Hindi": "Hindi",
+  "French": "French",
+  "Spanish": "Spanish",
+  "Russian": "Russian",
+  "Arabic": "Arabic",
+  "Italian": "Italian",
+  "Korean": "Korean",
+  "Chinese": "Chinese",
+  "Restaurants": "Alle Restaurants",
+  "MyProfile": "Mein Profil",
+  "MyCart": "Mein Warenkorb",
+  "MyOrder": "Meine Bestellung",
+  "ChatList": "Chat Liste",
+  "ForgotPassword": "Passwort vergessen",
+  "Languages": "Sprache",
+  "Logout": "Abmelden",
+  "WishList": "Wunschzettel",
+  "MyAddresses": "Meine Adressen",
+  "TableBookOrders": "Restaurant Tischbestellungen",
+  "TrackMyLocation": "Verfolgen Sie meinen Standort",
+  "StopTrackingLocation": "Tracking-Ort anhalten",
+  "Map": "Google Karte",
+  "Youtube": "Schau Video",
+  "Settings": "Einstellungen",
+  "IonicFirebaseChat": "Messenger",
+  "TranslateToEnglish": "Ins Englische übersetzen",
+  "TranslateToGerman": "Übersetzen auf Deutsch",
+  "ReadMore": "Weiterlesen",
+  "Category": "Kategorie",
+  "ProductList": "Produkte",
+  "Order": "Bestellen",
+  "PhoneNumber" : "Telefonnummer",
+  "Edit": "Bearbeiten",
+  "ChangePassword": "Passwort ändern",
+  "Totals": "Gesamt",
+  "SelectLanguage": "Select Language",
+  "Name": "Name",
+  "Default": "Default",
+  "Variation" : "Variation",
+  "ProceedtoCCAvenue": "Proceed to CC Avenue",
+  "DeliveryTime": "Delivery Time",
+  "DeliveryDate": "Delivery Date",
+  "GiftCardPromo": "Gift Card Promo",
+  "Haveacoupon?Enterbelow" : "Have a coupon? Enter below",
+  "Delete" : "Delete",
+  "AddToCart" : "Add To Cart",
+  "InStock": "InStock",	
+  "EmptyWishlistViewMessage": "Empty Wishlist View Message",
+  "Wishlist": "Wishlist",
+  "AccountInfo": "Account Info",
+  "RegisterAccount": "Register Account",
+  "Cancel": "Cancel",
+  "LogIn": "LogIn",
+  "Shop": "Shop",
+  "ProductName": "Product Name",
+  "SameForShipping": "Same For Shipping",
+  "Signup": "Sign Up",
+  "Account": "Account",
+  "Address": "Adresse",
+  "FoodSearch":"Essen Suchen",
+  "Welcome": "Willkommen",
+  "Email": "Email",
+  "password": "passwort",
+  "FirstName": "Vorname",
+  "LastName": "Last Name",
+  "Company": "Company",
+  "Phone": "Phone",
+  "StreetAddress": "Street Address",
+  "City": "City",
+  "Postcode": "Postcode",
+  "Country": "Country",
+  "State": "State",
+  "AddressBook": "Address Book",
+  "EditAddress": "Edit Address",
+  "ShippingAddress": "Shipping Address",
+  "Save": "Sparen",
+  "ResetPassword": "Reset Password",
+  "Enteremailaddress": "Enter email address",
+  "ForgotPasswordReset": "Type in your registered email id in the field and we will send you steps to reset your password",
+  "reset": "reset",
+  "OrderInfo": "Order Info",
+  "OrderNumber": "Order Number",
+  "Date": "Datum",
+  "PaymentMethod": "Payment Method",
+  "PaymentType": "Zahlungsart",
+  "OrderItemDetails":"Details zum Bestellartikel",
+  "BillingAddress": "Billing Address",
+  "ShippingMethod": "Shipping Method",
+  "ProductDetails": "Product Details",
+  "Total": "Gesamt",
+  "SubTotal": "Summe:",
+  "CashOnDelivery": "Nachnahme",
+  "WithBankAccount": "Mit Bankkonto",
+  "CreditCart": "Kreditkarte",
+  "ShippingTotal": "Shipping Total",
+  "TaxTotal": "Tax Total",
+  "GrandTotal": "Grand Total",
+  "LastOrders": "Last Orders",
+  "Pleaselogin": "Please login",
+  "Youmustlogintoseeyourorders": "You must log in to see your orders",
+  "username": "username",
+  "Therearenoorders.": "There are no orders.",
+  "OrderNumber": "Order Number",
+  "Orderdate": "Auftragsdatum",
+  "Shipto": "Ship to",
+  "Status": "Stellung",
+  "Quantity": "Menge",
+  "ViewDetails": "View Details",
+  "Cart": "Cart",
+  "Yourcartisempty!": "Ihr Warenkorb ist leer!",
+  "emptycartrestuarent": "Add some delicious food available on our menu to checkout.",
+  "BrowseOurMenu": "Browse Our Menu",
+  "Price": "Preis:",
+  "Selectashippingmethod": "Select a shipping method",
+  "Coupons": "Coupons",
+  "Shipping": "Shipping",
+  "Grand Total": "Grand Total",
+  "Checkout": "Checkout",
+  "Returningcustomer?Loginhere..": "Returning customer? Login here..",
+  "CreateAccount": "Create Account",
+  "Createanaccounttext": "Create an account by entering the information below. If you are a returning customer please login at the top of the page.",
+  "Yourorder": "Orders",
+  "Coupon": "Coupon",
+  "ProceedtopayPal": "Proceed to payPal",
+  "ProceedtoPayUMoney": "Proceed to PayU Money",
+  "CardNumber": "Card Number",
+  "StripeCardDetails": "Stripe Card Details",
+  "ExpiryMonth": "Expiry Month",
+  "ExpiryYear": "Expiry Year",
+  "CardCode": "Card Code",
+  "SelectPaymentMethod": "Wählen Sie die Zahlungsmethode",
+  "OrderSummary": "Order Summary",
+  "OrderReceived": "Order Received",
+  "orderreceivedtext": "Thank you. Your order has been received.",
+  "OrderNumber": "Order Number",
+  "Totalquantity": "Total quantity",
+  "OrderDetails": "Bestelldetails",
+  "Shipping": "Shipping",
+  "Continue": "Fortsetzen",
+  "inicio": "inicio",
+  "CustomerDetails": "Kunden Detail",
+  "UrbanKitchen": "Urban Kitchen",
+  "Product": "Product",
+  "OUTOFSTOCK": "OUT OF STOCK",
+  "Options": "Options",
+  "Selectoption": "Select option",
+  "ShortDescription": "Short Description",
+  "Description": "Description",
+  "ShowReviews": "Show Reviews",
+  "Reviews": "Reviews",
+  "Products": "Products",
+  "Categories": "Categories",
+  "Add": "Add",
+  "resetting...": "resetting...",
+  "Logging In...": "Logging In...",
+  "Registering...": "Registering...",
+  "ContinueShopping": "Continue Shopping",
+  "AddToEmptyCart": "Add some products available in our menu to checkout",
+  "Remove": "Remove",
+  "Apply": "Apply",
+  "ContinueCheckout": "Continue Checkout",
+  "PleaseWait": "Please Wait",
+  "PlaceOrder": "Place Order",
+  "Saving...": "Saving..."
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

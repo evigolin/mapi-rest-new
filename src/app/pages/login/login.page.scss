@@ -1,0 +1,113 @@
+ion-content {
+    --background: rgb(42, 43, 46);
+}
+
+ion-input {
+    --border-color: white;
+    --placeholder-font-weight: 300;
+}
+
+ion-item {
+    margin: auto;
+    width: 70vw;
+    --background: rgb(42, 43, 46);
+    --color: white;
+    --border-color: white;
+    --border-width: 1px;
+    --border-radius: 30px;
+    border-radius: 30px;
+}
+
+.item-login {
+    margin: auto;
+    width: 100% !important;
+    --background: rgb(42, 43, 46);
+    --color: white;
+    --border-color: white;
+    --border-width: 1px;
+    --border-radius: 30px;
+    border-radius: 30px;
+}
+
+ion-button {
+    height: 50px;
+    margin: auto;
+    width: 70vw;
+
+    --border-radius: 30px;
+    --background: rgb(221, 158, 0);
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    left: -20%;
+    right: -20%;
+
+    img {
+        max-width: unset;
+        position: relative;
+        z-index: 1;
+    }
+}
+
+.show {
+    position: relative;
+    z-index: 2;
+}
+
+.logo {
+    // margin-top: 20%;
+    z-index: 10;
+}
+
+.logo-login {
+    display: block;
+    margin: 0 auto;
+    margin-top: 2rem;
+
+    @media only screen and (max-width: 600px) {
+        margin-top: 1rem;
+    }
+}
+
+.button-login {
+    letter-spacing: 2px;
+}
+
+.icon-face {
+    width: 50px;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.icon-login {
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    margin-top: 2rem;
+    width: 20%;
+
+    @media only screen and (max-width: 600px) {
+        margin-top: 1rem;
+        width: 60%;
+    }
+
+    @media (min-width: 601px) and (max-width: 1024px) {
+        margin-top: 1rem;
+        width: 45%;
+    }
+}
+
+ion-icon {
+    margin: auto;
+    font-size: 30px;
+}
+
+.label-register {
+    font-size: 12px;
+}
+
+ion-label {
+    font-size: 15px;
+}

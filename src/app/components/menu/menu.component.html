@@ -1,0 +1,75 @@
+<ion-menu side="end" menuId="first" contentId="main">
+  <ion-content>
+    <ion-list lines="none" style="height: 100%;">
+      <ion-menu-toggle>
+        <ion-item lines="none" *ngIf="user || user != null" routerLinkActive="active" [routerLink]="'/profile'">
+          <ion-avatar slot="start">
+            <img src="{{(user.avt != '' && user.avt != null)? user.avt : './assets/imgs/profile.jpg' }}"
+              (error)="utilService.srcFailBackImg($event,'./assets/imgs/profile.jpg')">
+          </ion-avatar>
+          <ion-label>
+            <h2 class="capitalize txt1 fw-600 mg-0">{{user.first_name}} {{user.last_name}}</h2>
+            <p class="link-perfil">{{'See_my_profile' | translate}}</p>
+          </ion-label>
+        </ion-item>
+
+        <div class="line"></div>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle>
+        <ion-item lines="none" routerLinkActive="active" [routerLink]="'/cupons'">
+          <ion-icon name="pricetag" style="color: white;margin-right: 5px;"></ion-icon>
+          <ion-label class="label">{{'Coupons' | translate}}</ion-label>
+        </ion-item>
+        <div class="line"></div>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle>
+        <ion-item lines="none">
+          <ion-label class="label">{{'Language' | translate}}</ion-label>
+          <ng-container class="ion-text-left fw-400 ion_item_profile custon-input" *ngIf="flag">
+            <ion-label style="font: 14px;color: white;">{{'Loading_Information' | translate}}</ion-label>
+            <ion-spinner style="color: white;" name="dots"></ion-spinner>
+          </ng-container>
+          <ng-container *ngIf="!flag">
+            <ion-select [(ngModel)]="selected" (ionChange)="languageSelected($event)" okText="Ok" cancelText="Cancel"
+              style="max-width: 100%;margin-inline-end: 0em;color: white;">
+              <ion-select-option *ngFor="let language of languages" [value]="language.value">{{language?.text |
+                translate}}
+              </ion-select-option>
+            </ion-select>
+          </ng-container>
+        </ion-item>
+
+        <div class="line"></div>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle>
+        <ion-item class="ion-item" lines="none">
+          <ion-label slot="start" class="ion-label">{{'My_Account' | translate}}</ion-label>
+        </ion-item>
+        <ion-item *ngFor="let p of componentesAccount" routerLinkActive="active" [routerLink]="[p?.redirectTo]"
+          class="txt1 ion-item">
+          <ion-label>{{p?.name | translate}}</ion-label>
+        </ion-item>
+
+        <div class="line"></div>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle>
+        <ion-item class="ion-item" lines="none">
+          <ion-label slot="start" class="ion-label">{{'INFORMACIÓN' | translate}}</ion-label>
+          <!-- <ion-icon mode="ios" style="color: darkgrey; height: 15px;" name="arrow-forward"></ion-icon> -->
+        </ion-item>
+        <ion-item *ngFor="let p of componentesInfo" routerLinkActive="active" [routerLink]="[p?.redirectTo]"
+          class="txt1 ion-item">
+          <ion-label>{{p?.name | translate}}</ion-label>
+        </ion-item>
+        <ion-item class="txt1 ion-item" (click)="logout()" tappable [button]="true">
+          <ion-label>{{'Logout' | translate}}</ion-label>
+        </ion-item>
+        <div class="line"></div>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+</ion-menu>

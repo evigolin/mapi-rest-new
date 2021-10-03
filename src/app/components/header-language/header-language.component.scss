@@ -1,0 +1,35 @@
+.item-login {
+    margin: auto;
+    width: 100% !important;
+    --background: rgb(42, 43, 46);
+    --color: white;
+    --border-color: white;
+    --border-width: 1px;
+    --border-radius: 30px;
+    border-radius: 30px;
+}
+
+ion-icon {
+    margin: auto;
+    font-size: 30px;
+}
+
+ion-label {
+    font-size: 15px;
+}
+
+ion-input {
+    --border-color: white;
+    --placeholder-font-weight: 300;
+}
+
+ion-item {
+    margin: auto;
+    width: 70vw;
+    --background: rgb(42, 43, 46);
+    --color: white;
+    --border-color: white;
+    --border-width: 1px;
+    --border-radius: 30px;
+    border-radius: 30px;
+}

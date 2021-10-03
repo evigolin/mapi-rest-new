@@ -1,0 +1,10 @@
+[{
+    "name": "My_orders",
+    "redirectTo": "/orders"
+}, {
+    "name": "Address",
+    "redirectTo": "/address"
+}, {
+    "name": "Profile_Edit",
+    "redirectTo": "/profile-edit"
+}]
