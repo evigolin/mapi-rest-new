@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouteReuseStrategy } from '@angular/router';
+import { AngularFireModule } from '@angular/fire/compat';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
@@ -25,6 +26,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Drivers } from '@ionic/storage';
 import { Storage } from '@ionic/storage-angular';
 import { TranslateLoader } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
+import { ComponentsModule } from './components/components.module';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -42,6 +45,8 @@ export function createTranslateLoader(http: HttpClient) {
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    HttpClientModule,
+    ComponentsModule,
     // LazyLoadImageModule,
     TranslateModule.forRoot({
       loader: {
@@ -57,7 +62,7 @@ export function createTranslateLoader(http: HttpClient) {
         driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
       }
     ),
-
+    AngularFireModule.initializeApp(environment.firebaseConfig),
 
   ],
   providers: [
@@ -72,8 +77,9 @@ export function createTranslateLoader(http: HttpClient) {
       useClass: IonicRouteStrategy,
 
     },
-    
+
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
+

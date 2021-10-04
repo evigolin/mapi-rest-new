@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "mapifood-backend": {
+      "hosting": {
+        "app": [
+          "mapifood-backend"
+        ]
+      }
+    }
+  }
+}

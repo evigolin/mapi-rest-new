@@ -1,11 +1,16 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button>
+        <img slot="start" size="5" class="img-header" src="{{'assets/imgs/logo_app_sin.png' }}">
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
+<app-network></app-network>
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>

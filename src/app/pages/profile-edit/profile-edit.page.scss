@@ -1,0 +1,282 @@
+.content {
+  background-image: url("../../../assets/imgs/bg5.jpg");
+  height: 100%;
+}
+
+.user {
+  --background: transparent;
+  padding: 10px;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  width: 100%;
+}
+
+.label {
+  --background: transparent;
+  color: sandybrown;
+  text-align: center;
+}
+
+.custon-input {
+  --background: transparent;
+  border: 1px solid white;
+}
+
+.custon-input_checkbox {
+  --background: transparent;
+}
+
+.textCheckBox {
+  white-space: normal;
+  font-size: 16px;
+}
+
+.ion_button_profile {
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+.ion_item_profile {
+  margin-top: 0.5rem;
+  border-radius: 14px;
+}
+
+.ion_col_profile {
+  margin-bottom: 1rem;
+}
+
+.ion-title_profile {
+  margin-top: .5rem;
+  margin-bottom: 1rem;
+  font-size: 20px;
+}
+
+.ion-subtitle_profile {
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 20px;
+}
+
+.errorcls {
+  color: white !important;
+  float: right;
+  margin-top: -0.7rem;
+  padding-bottom: 0.4rem;
+}
+
+.image-profile {
+  border-radius: 50%;
+  width: 15rem;
+  margin-top: 1.5rem;
+
+  @media only screen and (max-width: 600px) {
+    width: 10rem;
+  }
+}
+
+.content-pedidos {
+  background: transparent;
+  position: relative;
+  top: 15%;
+  height: 100%;
+  padding: 20px;
+  display: grid;
+  place-items: center;
+
+  h2 {
+    margin: 0;
+  }
+
+  ion-avatar {
+    margin: auto;
+  }
+}
+
+.line {
+  border-bottom: 1px white solid;
+  width: 100%;
+  margin: 20px auto;
+}
+
+.poster-effect {
+  position: relative;
+  z-index: 99999;
+  margin-left: 33%;
+  width: 35%;
+  margin-top: 20%;
+}
+
+.title-content {
+  position: relative;
+  color: white;
+  z-index: 999;
+  margin: 5%;
+  margin-top: 50%;
+}
+
+.bg-cart2 {
+  position: absolute;
+  margin-top: 50%;
+}
+
+.bg-cart1 {
+  position: absolute;
+}
+
+.line {
+  border-bottom: 1px white solid;
+  width: 100%;
+  margin: 10px auto;
+  margin-top: 20px;
+}
+
+.list {
+  background: rgb(42, 43, 46);
+}
+
+.img-menu {
+  width: 40%;
+}
+
+.item-categori {
+  --background: transparent;
+  color: white;
+}
+
+.title-general {
+  font-size: 2.4rem;
+  font-weight: bold;
+  margin-top: -20%;
+}
+
+ion-icon {
+  color: white;
+}
+
+.description {
+  color: darkgrey;
+  width: 78%;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+.title-cat {
+  --background: rgb(63, 63, 63);
+  background: #3f3f3f;
+  border-radius: 2rem;
+  color: white;
+  width: 95%;
+  /* margin: auto; */
+  padding: 0;
+  margin-bottom: 20px;
+  margin-left: 15px;
+}
+
+.left {
+  margin-left: 80%;
+}
+
+.content-categoris {
+  position: relative;
+  z-index: 9999;
+  color: white;
+  margin: 5%;
+  font-weight: bold;
+  font-size: 20px;
+  width: 90%;
+  background: rgb(63, 63, 63);
+  border-radius: 10px;
+  height: 30px;
+  align-items: center;
+  display: flex;
+  padding: 10px;
+
+  .title {
+    margin-left: 10px;
+  }
+}
+
+.title-products {
+  position: relative;
+  z-index: 999;
+  color: #ffffff;
+}
+
+.card-content {
+  display: -webkit-box;
+  height: 170px;
+}
+
+.title-card {
+  position: absolute;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  p {
+    color: darkgrey;
+  }
+}
+
+.products {
+  background: rgb(42, 43, 46);
+
+  .card {
+    color: white;
+    margin-right: -3%;
+    border-radius: 2rem;
+    padding: 0.5rem;
+    height: 140px;
+
+    .card-item {
+      top: 45px;
+      position: absolute;
+      margin-left: 70%;
+      margin-top: -10%;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+  }
+
+  ion-item {
+    --background: transparent;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 2rem;
+    height: 140px;
+    position: absolute;
+    left: -1px;
+    z-index: -1;
+  }
+}
+
+.agregar {
+  --background: rgb(221, 158, 0);
+  // width: 115px;
+  color: white;
+  font-weight: bold;
+  --border-radius: 1rem;
+  position: relative;
+  // margin-left: 30%;
+  // margin-top: 20px;
+}
+
+ion-content {
+  --background: transparent;
+}
+
+ion-input {
+  color: white;
+  text-align: center;
+}
+
+ion-datetime {
+  color: white;
+  text-align: center;
+  display: contents;
+}

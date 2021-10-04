@@ -7,7 +7,7 @@ import { ObservableService } from 'src/app/services/observable/observable.servic
 import { UtilsService } from 'src/app/services/utils/utils.service';
 
 // import plugins
-import { TranslateService } from "@ngx-translate/core"; // add this
+import { TranslateService } from "@ngx-translate/core";
 
 // import archive
 import { menu, menus } from '../_archives/archivo.data';
@@ -32,9 +32,6 @@ export class MenuComponent implements OnInit {
 
   // any
   user: any;
-  promosList: any;
-  lastCupon: any;
-  promo: any;
 
   // arrays
   componentesAccount: menu[] = menus;
@@ -62,15 +59,6 @@ export class MenuComponent implements OnInit {
     this.observableService._authUSelelected.subscribe(user => {
       if (user || user != null) {
         this.user = user;
-      }
-    });
-
-    // observable promos 
-    this.observableService._promosSelelected.subscribe(promos => {
-      if (promos || promos != null) {
-        this.promosList = promos;
-        this.promo = this.promosList[0];
-
       }
     });
 

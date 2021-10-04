@@ -1,0 +1,318 @@
+<app-header [title]="'Profile_edit'"></app-header>
+<app-network></app-network>
+<ion-content>
+  <div>
+    <div class="content-pedidos">
+
+      <!-- <ion-avatar> -->
+      <img class="image-profile" src="{{(img != '' && img != null)? img : './assets/imgs/profile.jpg' }}"
+      (error)="utilService.srcFailBackImg($event,'./assets/imgs/profile.jpg')">
+      <!-- </ion-avatar> -->
+
+      <ion-item lines="none" *ngIf="user" class="user">
+        <ion-label style="text-align: center;">{{user.first_name}} {{user.last_name}}</ion-label>
+      </ion-item>
+
+      <form [formGroup]="form">
+        <ion-grid class="ion-text-left">
+
+          <ion-row class="ion-no-padding ion-no-margin ion_col_profile ion-title_profile">
+            <ion-col class="ion-no-padding ion-no-margin ion-text-center">
+              <ion-label class="label">{{'Personal_information' | translate}} </ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
+            <ion-col class="ion-no-padding ion-no-margin">
+              <ion-label class="label">{{'Name' | translate}}: </ion-label>
+              <ion-item class="ion-text-left fw-400 ion_item_profile custon-input">
+                <ion-input formControlName="firstName" type="text">
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <!-- Init errors messages -->
+          <ion-row class="ion-no-padding ion-no-margin">
+            <ion-col size="12" class="ion-no-padding ion-no-margin">
+              <!-- error message required -->
+              <ion-text class="errorcls ion-no-padding ion-no-margin"
+                *ngIf="f['firstName'].hasError('required') && (f['firstName'].touched)">
+                <small class="text-danger float-right">'{{'Required_field' | translate}}'</small>
+              </ion-text>
+              <!-- error message maxlength -->
+              <ion-text class="errorcls ion-no-padding ion-no-margin"
+                *ngIf="f['firstName'].hasError('pattern') && (f['firstName'].touched)">
+                <small class="text-danger float-right">{{'Only_letters' | translate}}</small>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+          <!-- End errors messages -->
+
+          <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
+            <ion-col class="ion-no-padding ion-no-margin">
+              <ion-label class="label">{{'Last_name' | translate}}: </ion-label>
+              <ion-item class="ion-text-left fw-400 ion_item_profile custon-input">
+                <ion-input formControlName="lastName" type="text">
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <!-- Init errors messages -->
+          <ion-row class="ion-no-padding ion-no-margin">
+            <ion-col size="12" class="ion-no-padding ion-no-margin">
+              <!-- error message required -->
+              <ion-text class="errorcls ion-no-padding ion-no-margin"
+                *ngIf="f['lastName'].hasError('required') && (f['lastName'].touched)">
+                <small class="text-danger float-right">{{'Required_field' | translate}}</small>
+              </ion-text>
+              <!-- error message maxlength -->
+              <ion-text class="errorcls ion-no-padding ion-no-margin"
+                *ngIf="f['lastName'].hasError('pattern') && (f['lastName'].touched)">
+                <small class="text-danger float-right">{{'Only_letters' | translate}}</small>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+          <!-- End errors messages -->
+
+          <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
+            <ion-col class="ion-no-padding ion-no-margin">
+              <ion-label class="label">Email: </ion-label>
+              <ion-item class="ion-text-left fw-400 ion_item_profile custon-input">
+                <ion-input formControlName="email" type="text">
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="ion-no-padding ion-no-margin ion_col_profile ion-subtitle_profile">
+            <ion-col class="ion-no-padding ion-no-margin ion-text-center">
+              <ion-label class="label">{{'Billing_data' | translate}} </ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
+            <ion-col class="ion-no-padding ion-no-margin">
+              <ion-label class="label">{{'Departament' | translate}}: </ion-label>
+              <ion-item class="ion-text-left fw-400 ion_item_profile custon-input" *ngIf="flag">
+                <ion-label style="font: 14px;color: white;">{{'Loading_Information' | translate}}</ion-label>
+                <ion-spinner style="color: white;" name="dots"></ion-spinner>
+              </ion-item>
+              <ion-item class="ion-text-left fw-400 ion_item_profile custon-input" *ngIf="!flag">
+                <ion-select formControlName="state_billing" style="color: white;width: 100%;max-width: 100%;"
+                  [(ngModel)]="stateSelected" (ionChange)="state($event)" okText="Ok" cancelText="Cancelar">
+                  <ion-select-option [value]="''">{{'Select' | translate}}</ion-select-option>
+                  <ion-select-option *ngFor="let departament of departaments" [value]="departament">
+                    {{ departament?.name}}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <!-- Init errors messages -->
+          <ion-row class="ion-no-padding ion-no-margin">
+            <ion-col size="12" class="ion-no-padding ion-no-margin">
+              <!-- error message required -->
+              <ion-text class="errorcls ion-no-padding ion-no-margin"
+                *ngIf="f['state_billing'].hasError('required') && (f['state_billing'].touched)">
+                <small class="text-danger float-right">{{'Required_field' | translate}}</small>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+          <!-- End errors messages -->
+
+          <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
+            <ion-col class="ion-no-padding ion-no-margin">
+              <ion-label class="label">{{'municipality' | translate}}: </ion-label>
+              <ion-item class="ion-text-left fw-400 ion_item_profile custon-input" *ngIf="flag">
+                <ion-label style="font: 14px;color: white;">{{'Loading_Information' | translate}}</ion-label>
+                <ion-spinner style="color: white;" name="dots"></ion-spinner>
+              </ion-item>
+              <ion-item class="ion-text-left fw-400 ion_item_profile custon-input" *ngIf="!flag">
+                <ion-select style="color: white;width: 100%;max-width: 100%;" formControlName="city_billing"
+                  [(ngModel)]="citySelected" okText="Ok" cancelText="Cancelar">
+                  <ion-select-option [value]="''">{{'Select' | translate}}</ion-select-option>
+                  <ion-select-option *ngFor="let municipality of stateSelected?.Municipalities" [value]="municipality">
+                    {{municipality?.name}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <!-- Init errors messages -->
+          <ion-row class="ion-no-padding ion-no-margin">
+            <ion-col size="12" class="ion-no-padding ion-no-margin">
+              <!-- error message required -->
+              <ion-text class="errorcls ion-no-padding ion-no-margin"
+                *ngIf="f['city_billing'].hasError('required') && (f['city_billing'].touched)">
+                <small class="text-danger float-right">{{'Required_field' | translate}}</small>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+          <!-- End errors messages -->
+
+          <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
+            <ion-col class="ion-no-padding ion-no-margin">
+              <ion-label class="label">{{'Delivery_address' | translate}}: </ion-label>
+              <ion-item class="ion-text-left fw-400 ion_item_profile custon-input">
+                <ion-input formControlName="address_1_billing" type="text">
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <!-- Init errors messages -->
+          <ion-row class="ion-no-padding ion-no-margin">
+            <ion-col size="12" class="ion-no-padding ion-no-margin">
+              <!-- error message required -->
+              <ion-text class="errorcls ion-no-padding ion-no-margin"
+                *ngIf="f['address_1_billing'].hasError('required') && (f['address_1_billing'].touched)">
+                <small class="text-danger float-right">{{'Required_field' | translate}}</small>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+          <!-- End errors messages -->
+
+          <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
+            <ion-col class="ion-no-padding ion-no-margin">
+              <ion-label class="label">{{'Número de teléfono' | translate}}:</ion-label>
+              <ion-item class="ion-text-left fw-400 ion_item_profile custon-input">
+                <ion-input formControlName="phone_billing" type="tel">
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <!-- Init errors messages -->
+          <ion-row class="ion-no-padding ion-no-margin">
+            <ion-col size="12" class="ion-no-padding ion-no-margin">
+              <!-- error message required -->
+              <ion-text class="errorcls ion-no-padding ion-no-margin"
+                *ngIf="f['phone_billing'].hasError('required') && (f['phone_billing'].touched)">
+                <small class="text-danger float-right">{{'Required_field' | translate}}</small>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+          <!-- End errors messages -->
+
+          <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
+            <ion-col class="ion-no-padding ion-no-margin ion-text-center">
+              <ion-item class="ion-text-left fw-400 ion_item_profile custon-input_checkbox">
+                <ion-label class="ion-text-justify label textCheckBox">La información de facturación y de envío son la
+                  misma</ion-label>
+                <ion-checkbox slot="end" formControlName="checkBoxShipping" (ionChange)="informationShipping()"
+                  #checkBox>
+                </ion-checkbox>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ng-container *ngIf="!checkBox.checked">
+            <ion-row class="ion-no-padding ion-no-margin ion_col_profile ion-subtitle_profile">
+              <ion-col class="ion-no-padding ion-no-margin ion-text-center">
+                <ion-label class="label">{{'Shipping_information' | translate}} </ion-label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
+              <ion-col class="ion-no-padding ion-no-margin">
+                <ion-label class="label">{{'Departament' | translate}}: </ion-label>
+                <ion-item class="ion-text-left fw-400 ion_item_profile custon-input" *ngIf="flag">
+                  <ion-label style="font: 14px;color: white;">{{'Loading_Information' | translate}}</ion-label>
+                  <ion-spinner style="color: white;" name="dots"></ion-spinner>
+                </ion-item>
+                <ion-item class="ion-text-left fw-400 ion_item_profile custon-input" *ngIf="!flag">
+                  <ion-select style="color: white;width: 100%;max-width: 100%;"
+                    formControlName="{{'state_shipping' | translate}}" [(ngModel)]="stateSelected_1"
+                    (ionChange)="stateShipping($event)" okText="Ok" cancelText="Cancelar">
+                    <ion-select-option [value]="''">{{'Select' | translate}}</ion-select-option>
+                    <ion-select-option *ngFor="let departament of departaments" [value]="departament">
+                      {{ departament?.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <!-- Init errors messages -->
+            <ion-row class="ion-no-padding ion-no-margin">
+              <ion-col size="12" class="ion-no-padding ion-no-margin">
+                <!-- error message required -->
+                <ion-text class="errorcls ion-no-padding ion-no-margin"
+                  *ngIf="f['state_shipping'].hasError('required') && (f['state_shipping'].touched)">
+                  <small class="text-danger float-right">{{'Required_field' | translate}}</small>
+                </ion-text>
+              </ion-col>t
+            </ion-row>
+            <!-- End errors messages -->
+
+            <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
+              <ion-col class="ion-no-padding ion-no-margin">
+                <ion-label class="label">{{'municipality' | translate}}: </ion-label>
+                <ion-item class="ion-text-left fw-400 ion_item_profile custon-input" *ngIf="flag">
+                  <ion-label style="font: 14px;color: white;">{{'Loading_Information' | translate}}</ion-label>
+                  <ion-spinner style="color: white;" name="dots"></ion-spinner>
+                </ion-item>
+                <ion-item class="ion-text-left fw-400 ion_item_profile custon-input" *ngIf="!flag">
+                  <ion-select style="color: white;width: 100%;max-width: 100%;" formControlName="city_shipping"
+                    [(ngModel)]="citySelected_1" okText="Ok" cancelText="Cancelar">
+                    <ion-select-option [value]="''">{{'Select_municipality' | translate}}</ion-select-option>
+                    <ion-select-option *ngFor="let municipality of stateSelected_1?.Municipalities"
+                      [value]="municipality">
+                      {{municipality?.name}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <!-- Init errors messages -->
+            <ion-row class="ion-no-padding ion-no-margin">
+              <ion-col size="12" class="ion-no-padding ion-no-margin">
+                <!-- error message required -->
+                <ion-text class="errorcls ion-no-padding ion-no-margin"
+                  *ngIf="f['city_shipping'].hasError('required') && (f['city_shipping'].touched)">
+                  <small class="text-danger float-right">{{'Required_field' | translate}}</small>
+                </ion-text>
+              </ion-col>
+            </ion-row>
+            <!-- End errors messages -->
+
+            <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
+              <ion-col class="ion-no-padding ion-no-margin">
+                <ion-label class="label">{{'Delivery_address' | translate}}: </ion-label>
+                <ion-item class="ion-text-left fw-400 ion_item_profile custon-input">
+                  <ion-input formControlName="{{'address_1_shipping' | translate}}" type="text">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <!-- Init errors messages -->
+            <ion-row class="ion-no-padding ion-no-margin">
+              <ion-col size="12" class="ion-no-padding ion-no-margin">
+                <!-- error message required -->
+                <ion-text class="errorcls ion-no-padding ion-no-margin"
+                  *ngIf="f['address_1_shipping'].hasError('required') && (f['address_1_shipping'].touched)">
+                  <small class="text-danger float-right">{{'Required_field' | translate}}</small>
+                </ion-text>
+              </ion-col>
+            </ion-row>
+            <!-- End errors messages -->
+
+          </ng-container>
+        </ion-grid>
+      </form>
+
+      <div class="btn-said ion_button_profile ion-text-center">
+        <ion-button (click)="update()" class="bg-yl agregar">
+          <ion-label>
+            {{'Save_Changes' | translate}}
+          </ion-label>
+        </ion-button>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

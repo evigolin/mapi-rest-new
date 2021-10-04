@@ -8,16 +8,18 @@ import { HttpClientModule } from "@angular/common/http";
 // import plugins
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 
-// import component
+// import components
 import { NetworkComponent } from "./network/network.component";
 import { MenuComponent } from "./menu/menu.component";
 import { HeaderLanguageComponent } from "./header-language/header-language.component";
+import { HeaderComponent } from "./header/header.component";
 
 @NgModule({
   declarations: [
     MenuComponent,
     NetworkComponent,
     HeaderLanguageComponent,
+    HeaderComponent,
 
   ],
   exports: [
@@ -25,6 +27,7 @@ import { HeaderLanguageComponent } from "./header-language/header-language.compo
     RouterModule,
     NetworkComponent,
     HeaderLanguageComponent,
+    HeaderComponent,
 
   ],
   imports: [

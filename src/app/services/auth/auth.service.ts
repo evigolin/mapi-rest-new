@@ -57,12 +57,13 @@ export class AuthService {
       ).toPromise()
         .then(
           async (response) => { // Success          
-            // console.log(response);
+            console.log(response);
 
             // get request the information of the logged in user
             await this.http.get(
-              `${this.url}customers?email=${response.user_email}`, this.httpOption
+              `${this.url}customers?role=wcfm_vendor&email=${response.user_email}`, this.httpOption
             ).toPromise<any>().then(async (result) => {
+              console.log(result);
 
               if (result.length === 0) {
                 let header = 'Error';
@@ -163,5 +164,43 @@ export class AuthService {
 
           });
     });
+  }
+
+  async updateUser(data) {
+
+    let user = await this.observableService.getUserStorage();
+
+    await this.http.put(
+      `${this.url}customers/${user.id}`, data, this.httpOption
+    ).toPromise<any>()
+      .then(async response => {
+        // console.log(response);
+
+        // update user in localStorage
+        let user = response;
+        // console.log(user);
+
+        // save storage
+        await this.observableService.changeUserStorage(user);
+        await this.observableService.changeControlUpdate(true);
+
+        // dissmiss loading
+        await this.utilService.dismissLoading();
+
+        let header = 'Information';
+        let message = 'Successful_Update';
+        this.utilService.getAlertConfirm(header, message);
+        this.navCtrl.navigateRoot('/home');
+
+      })
+      .catch(async (error) => {
+        console.log(error);
+        await this.utilService.dismissLoading();
+
+        let header = 'Error';
+        let message = 'Connection_error'
+        this.utilService.alert(header, message);
+
+      });
   }
 }

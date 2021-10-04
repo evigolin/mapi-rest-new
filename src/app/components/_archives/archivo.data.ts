@@ -7,16 +7,20 @@ export interface menu {
 export const menus: menu[] = [
     {
         name: "My_orders",
-        redirectTo: "/orders"
+        redirectTo: "/home"
+    },
+    {
+        name: "my_products",
+        redirectTo: "/products"
     },
     // {
     //     name: "DIRECCIONES",
     //     redirectTo: "/address"
     // },
-    {
-        name: "Profile_edit",
-        redirectTo: "/profile-edit"
-    }
+    // {
+    //     name: "Profile_edit",
+    //     redirectTo: "/profile-edit"
+    // }
 ]
 
 export interface language {

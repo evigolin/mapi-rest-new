@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonRouterOutlet, NavController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
@@ -11,18 +11,20 @@ import { UtilsService } from './services/utils/utils.service';
 
 // import plugin
 import { TranslateService } from '@ngx-translate/core';
+import { Storage } from '@ionic/storage-angular';
 
 // import native
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   @ViewChild(IonRouterOutlet) routerOutlet: IonRouterOutlet;
   // any
   user: any;
@@ -53,7 +55,25 @@ export class AppComponent {
     private oneSignalService: OneSignalNotificationService,
     private observableService: ObservableService,
     private navCtrl: NavController,
-  ) { }
+  ) {
+    this.initStorage();
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+
+    if (this.connectSubscription) {
+      // stop connect watch
+      this.connectSubscription.unsubscribe();
+    }
+  }
+
+  async ngOnInit() {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    await this.initializeApp();
+  }
 
   async initializeApp() {
     this.platform.ready().then(async () => {
@@ -74,6 +94,7 @@ export class AppComponent {
 
       // detect connection
       this.DetectInternetConnectionOrDisconnection();
+
     });
   }
 
@@ -157,16 +178,25 @@ export class AppComponent {
   }
 
   async getStorageUser() {
-    await this.storage.get('user').then((user) => {
+    await this.storage.get('vendor').then(async(user) => {
+      console.log(user);
+
       if (user != null) {
         this.user = user;
-        this.observableService.changeUserStorage(user);
+        await this.observableService.changeUserStorage(user);
         this.navCtrl.navigateRoot('/home');
-
 
       } else {
         this.navCtrl.navigateRoot('/login');
       }
     });
+  }
+
+  // NEW STORAGE CONFIG
+
+  private async initStorage() {
+    // If using, define drivers here: await this.storage.defineDriver(/*...*/);
+    const storage = await this.storage.create();
+    this._storage = storage;
   }
 }
