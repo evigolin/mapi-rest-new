@@ -221,4 +221,51 @@ export class UtilsService {
     event.target.src = urlBackup;
   }
 
+  getObjectInformation(userInformation: any) {
+
+    for (const info of userInformation.meta_data) {
+      if (info.key === 'wcfmmp_profile_settings') {
+
+        // initialize object with the user information that will be stored in the phone storage
+        let user = {
+          img: userInformation.avatar_url,
+          phone: info.value.phone,
+          cd: info.value.address.country,
+          email: userInformation.email,
+          username: userInformation.email,
+          first_name: userInformation.first_name,
+          last_name: userInformation.last_name,
+          id: userInformation.id,
+          billing: {
+            address_1: userInformation.billing.address_1 ? userInformation.billing.address_1 : info.value.address.street_1,
+            address_2: userInformation.billing.address_2,
+            city: userInformation.billing.city ? userInformation.billing.city : info.value.address.city,
+            company: userInformation.billing.company,
+            country: userInformation.billing.country ? userInformation.billing.country : info.value.address.country,
+            email: userInformation.billing.email,
+            first_name: userInformation.billing.first_name ? userInformation.billing.first_name : userInformation.first_name,
+            last_name: userInformation.billing.last_name ? userInformation.billing.last_name : userInformation.last_name,
+            phone: userInformation.billing.phone ? userInformation.billing.phone : info.value.phone,
+            postcode: userInformation.billing.postcode ? userInformation.billing.postcode : info.value.address.zip,
+            state: userInformation.billing.state ? userInformation.billing.state : info.value.address.state,
+          },
+          shipping: {
+            address_1: userInformation.shipping.address_1 ? userInformation.shipping.address_1 : info.value.address.street_1,
+            address_2: userInformation.shipping.address_2,
+            city: userInformation.shipping.city ? userInformation.shipping.city : info.value.address.city,
+            company: userInformation.shipping.company,
+            country: userInformation.shipping.country ? userInformation.shipping.country : info.value.address.country,
+            first_name: userInformation.shipping.first_name ? userInformation.shipping.first_name : userInformation.first_name,
+            last_name: userInformation.shipping.last_name ? userInformation.shipping.last_name : userInformation.last_name,
+            postcode: userInformation.shipping.postcode ? userInformation.shipping.postcode : info.value.address.zip,
+            state: userInformation.shipping.state ? userInformation.shipping.state : info.value.address.state,
+          }
+        };
+
+        return user;
+      }
+    }
+
+  }
+
 }

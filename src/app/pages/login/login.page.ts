@@ -73,6 +73,10 @@ export class LoginPage implements OnInit {
     this.iab.create('https://mimapi.club/mi-cuenta/lost-password/', '_system');
   }
 
+  register() {
+    this.iab.create('https://mimapi.club/vendor-register/', '_system');
+  }
+
   async languageSelected(event) {
     await this.utilService.setLanguage(event.detail.value);
   }
