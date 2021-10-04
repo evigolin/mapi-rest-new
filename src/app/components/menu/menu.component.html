@@ -4,8 +4,7 @@
       <ion-menu-toggle>
         <ion-item lines="none" *ngIf="user || user != null" routerLinkActive="active" [routerLink]="'/profile'">
           <ion-avatar slot="start">
-            <img src="{{(user.avt != '' && user.avt != null)? user.avt : './assets/imgs/profile.jpg' }}"
-              (error)="utilService.srcFailBackImg($event,'./assets/imgs/profile.jpg')">
+            <img [lazyLoad]="user.img">
           </ion-avatar>
           <ion-label>
             <h2 class="capitalize txt1 fw-600 mg-0">{{user.first_name}} {{user.last_name}}</h2>

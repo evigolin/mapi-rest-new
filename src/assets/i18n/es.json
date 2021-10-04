@@ -222,8 +222,10 @@
   "Processing_Order": "Procesando Pedido",
   "Removing_product!!": "Eliminando producto!!",
   "In_order_to_enjoy_our_service_you_must_complete_your_profile": "Para poder disfrutar de nuestro servicio debe completar su perfil",
-  "municipality": "municipality",
+  "municipality": "Municipio",
   "Today_Hours": "Horario",
   "User_not_found_to_enjoy_our_services_we_invite_you_to_register": "Usuario no encontrado para disfrutar de nuestros servicios los invitamos a registrarse",
-  "my_products": "Mis Productos"
-}
+  "my_products": "Mis Productos",
+  "postcode": "Código Postal",
+  "products": "Productos",
+  "No_Products": "Sin Productos"

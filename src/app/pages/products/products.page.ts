@@ -19,6 +19,7 @@ export class ProductsPage implements OnInit {
   loading: any;
   img: any;
   description: any;
+  user: any;
 
   // boolean
   flag: boolean = false;
@@ -36,19 +37,20 @@ export class ProductsPage implements OnInit {
   async ngOnInit() {
 
     this.flag = true;
-
-    let restaurant = await this.observableService.getRestaurant();
-    this.id = Number(restaurant.id);
-    this.title = restaurant.title;
-    this.description = restaurant.description;
-    this.img = restaurant.img;
+    this.user = await this.observableService.getUserStorage();
+    this.id = Number(this.user.id);
+    this.title = this.user.title;
+    this.description = this.user.description;
+    this.img = this.user.img;
     let controlCategories = await this.observableService.getControlCategories();
 
     if (!controlCategories) {
 
       try {
 
-        this.categoryList = await this.apiService.getProductsOfRestaurantNew(restaurant.id);
+        this.categoryList = await this.apiService.getProductsOfRestaurantNew(this.id);
+        console.log(this.categoryList);
+        
         let typeData = (typeof this.categoryList === 'object') ? true : false;
 
         if (typeData) {

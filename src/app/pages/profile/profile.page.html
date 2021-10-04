@@ -17,13 +17,11 @@
   <div class="content-pedidos" *ngIf="!flag">
 
     <!-- <ion-avatar> -->
-    <img class="image-profile" src="{{(user.img != '' && user.img != null)? user.img : './assets/imgs/profile.jpg' }}"
-    (error)="utilService.srcFailBackImg($event,'./assets/imgs/profile.jpg')">
+    <img class="image-profile" [lazyLoad]="user.img">
     <!-- </ion-avatar> -->
 
     <ion-item lines="none" *ngIf="user" class="user">
-      <ion-label style="margin-right: 10px;">{{user.first_name}}</ion-label>
-      <ion-label> {{user.last_name}}</ion-label>
+      <ion-label style="text-align: center;">{{user.first_name}} {{user.last_name}}</ion-label>
     </ion-item>
 
     <ion-grid style="width: 90%;" class="ion-text-left">
@@ -61,9 +59,30 @@
         </ion-col>
       </ion-row>
 
-      <ion-row class="ion-no-padding ion-no-margin ion_col_profile ion-subtitle_profile">
-        <ion-col class="ion-no-padding ion-no-margin ion-text-center">
-          <ion-label class="label">{{'Billing_data' | translate}} </ion-label>
+      <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
+        <ion-col class="ion-no-padding ion-no-margin">
+          <ion-label class="label">{{'Phone' | translate}}:</ion-label>
+          <ion-item class="ion-text-left fw-400 ion_item_profile custon-input">
+            <ion-label class="label">{{user.phone}}</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
+        <ion-col class="ion-no-padding ion-no-margin">
+          <ion-label class="label">{{'StreetAddress' | translate}}: </ion-label>
+          <ion-item class="ion-text-left fw-400 ion_item_profile custon-input">
+            <ion-label class="label">{{user.address}} </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
+        <ion-col class="ion-no-padding ion-no-margin">
+          <ion-label class="label">{{'Country' | translate}}: </ion-label>
+          <ion-item class="ion-text-left fw-400 ion_item_profile custon-input">
+            <ion-label class="label">{{user.country}} </ion-label>
+          </ion-item>
         </ion-col>
       </ion-row>
 
@@ -71,7 +90,7 @@
         <ion-col class="ion-no-padding ion-no-margin">
           <ion-label class="label">{{'Departament' | translate}}: </ion-label>
           <ion-item class="ion-text-left fw-400 ion_item_profile custon-input">
-            <ion-label class="label">{{user.billing.state}} </ion-label>
+            <ion-label class="label">{{user.state}} </ion-label>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -80,63 +99,21 @@
         <ion-col class="ion-no-padding ion-no-margin">
           <ion-label class="label">{{'municipality' | translate}}: </ion-label>
           <ion-item class="ion-text-left fw-400 ion_item_profile custon-input">
-            <ion-label class="label">{{user.billing.city}} </ion-label>
+            <ion-label class="label">{{user.city}} </ion-label>
           </ion-item>
         </ion-col>
       </ion-row>
 
-      <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
+      <ion-row class="ion-no-padding ion-no-margin ion_col_profile" style="margin-bottom: 1.5rem;">
         <ion-col class="ion-no-padding ion-no-margin">
-          <ion-label class="label">{{'Delivery_address' | translate}}: </ion-label>
+          <ion-label class="label">{{'postcode' | translate}}: </ion-label>
           <ion-item class="ion-text-left fw-400 ion_item_profile custon-input">
-            <ion-label class="label">{{user.billing.address_1}} </ion-label>
+            <ion-label class="label">{{user.postcode}} </ion-label>
           </ion-item>
         </ion-col>
       </ion-row>
 
-      <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
-        <ion-col class="ion-no-padding ion-no-margin">
-          <ion-label class="label">{{'Número de teléfono' | translate}}:</ion-label>
-          <ion-item class="ion-text-left fw-400 ion_item_profile custon-input">
-            <ion-label class="label">{{user.billing.phone}}</ion-label>
-          </ion-item>
-        </ion-col>
-      </ion-row>
 
-      <ng-container>
-        <ion-row class="ion-no-padding ion-no-margin ion_col_profile ion-subtitle_profile">
-          <ion-col class="ion-no-padding ion-no-margin ion-text-center">
-            <ion-label class="label">{{'Shipping_information' | translate}} </ion-label>
-          </ion-col>
-        </ion-row>
-
-        <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
-          <ion-col class="ion-no-padding ion-no-margin">
-            <ion-label class="label">{{'Departament' | translate}}: </ion-label>
-            <ion-item class="ion-text-left fw-400 ion_item_profile custon-input">
-              <ion-label class="label">{{user.shipping.state}}</ion-label>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-
-        <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
-          <ion-col class="ion-no-padding ion-no-margin">
-            <ion-label class="label">{{'municipality' | translate}}: </ion-label>
-            <ion-item class="ion-text-left fw-400 ion_item_profile custon-input">
-              <ion-label class="label">{{user.shipping.city}}</ion-label>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-
-        <ion-row class="ion-no-padding ion-no-margin ion_col_profile">
-          <ion-col class="ion-no-padding ion-no-margin">
-            <ion-label class="label">{{'Delivery_address' | translate}}: </ion-label>
-            <ion-item class="ion-text-left fw-400 ion_item_profile custon-input">
-              <ion-label class="label">{{user.shipping.address_1}}</ion-label>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ng-container>
     </ion-grid>
   </div>
 

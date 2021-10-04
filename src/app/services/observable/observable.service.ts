@@ -15,9 +15,6 @@ export class ObservableService {
   //observable authUser
   readonly _authUSelelected = this._authUser.asObservable();
 
-  // initialize restaurant
-  private _restaurant = new BehaviorSubject<any | null>(null);
-
   // initialize control categories
   private _controlCategories = new BehaviorSubject<boolean | null>(false);
 
@@ -57,20 +54,6 @@ export class ObservableService {
     if (user !== null) {
       this._authUser.next(user);
     }
-  }
-
-  // <<<<<<<<<<<<<<<<<<<<<<<<< restaurant >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-  async changeRestaurant(restaurant: any) {
-    this._restaurant.next(restaurant);
-  }
-
-  async getRestaurant() {
-    return this._restaurant.getValue();
-  }
-
-  async removeRestaurant() {
-    this._restaurant.next(null);
   }
 
   // <<<<<<<<<<<<<<<<<<<<<<<<< control categories >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
