@@ -14,23 +14,20 @@
 <ion-content>
   <div class="content">
     <div class="content-pedidos">
-
-      <ion-row class="ion-no-padding ion-no-margin" style="margin-top: 1.8rem;margin-bottom: 1rem;">
-        <ion-col class="ion-no-padding ion-no-margin">
-          <h2 class="title">{{ 'My_orders' | translate}}</h2>
-        </ion-col>
-      </ion-row>
-
       <ion-item style="background: transparent;--background: transparent;--inner-padding-end: 0em;">
-        <ion-text slot="start" style="--inner-padding-end: 0em;margin-inline-end: 0em;">
+        <!-- <ion-text slot="start" style="--inner-padding-end: 0em;">
+          <h3 class="txt-light title">{{'My_orders' | translate}}</h3>
+        </ion-text> -->
+
+        <!-- <ion-text slot="start" style="--inner-padding-end: 0em;margin-inline-end: 0em;">
           <ion-select (ionChange)="filter()" [(ngModel)]="orderSelected" okText="Ok" cancelText="Cancel"
             style="max-width: 100%;margin-inline-end: 0em;color: white;">
             <ion-select-option [value]="''">{{'All' | translate}}</ion-select-option>
             <ng-container *ngFor="let order of statusOrder">
-              <ion-select-option [value]="order.value">{{order?.name | translate}}</ion-select-option>
+              <ion-select-option [value]="order.value">{{order?.name}}</ion-select-option>
             </ng-container>
           </ion-select>
-        </ion-text>
+        </ion-text> -->
 
       </ion-item>
 
@@ -64,23 +61,40 @@
 
       <ng-container *ngIf="!flag && orders && orders.length !== 0">
         <ion-list class="products">
+          <!-- <ion-list-header class="title-cat">Pedidos</ion-list-header> -->
           <div class="ion_div_detail" *ngFor="let order of orders">
             <h2 class="title_card_item">{{'Order' | translate}} #{{order.number}}</h2>
-            <ion-item class="ion_item_img ion-no-margin ion-no-padding">
+            <ion-item class="ion_item_img ion-no-margin ion-no-padding" (click)="presentPopover(order)">
               <ion-thumbnail class="ion_thumbart" slot="end">
                 <img class="ion_img_detail" src="{{'assets/imgs/pedido.jpeg' }}" />
               </ion-thumbnail>
               <ion-label>
+                <p class="ion_descText ion-no-margin ion-no-padding">{{'Comprador' | translate}}:
+                  {{order.user_name}}</p>
+                <p>
+                <p class="ion_descText ion-no-margin ion-no-padding">{{'Direccion de envio' | translate}}:
+                  {{order.address_orders.address_shipping.address}}, {{order.address_orders.address_shipping.state}},
+                  {{order.address_orders.address_shipping.city}}</p>
+                <p>
+                <p class="ion_descText ion-no-margin ion-no-padding">{{'phone' | translate}}:
+                  {{order.phone}}</p>
+                <p>
+                <p class="ion_descText ion-no-margin ion-no-padding">{{'email' | translate}}:
+                  {{order.email}}</p>
+                <p>
+                <p class="ion_descText ion-no-margin ion-no-padding">{{'metodo de pago' | translate}}:
+                  {{order.payment_metod}}</p>
+                <p>
                 <p class="ion_descText ion-no-margin ion-no-padding" style="font-size: 16px;font-weight: bold;">Total
                   $ {{order.total}}</p>
-                <p class="ion_descText ion-no-margin ion-no-padding">{{'Order_date' | translate}}:<br>
-                  {{order.date_created | date:
+                <p class="ion_descText ion-no-margin ion-no-padding">{{'Order_date' | translate}}:
+                  {{order.createdAt | date:
                   'dd/MM/yyyy'}}</p>
-                <p class="ion_descText ion-no-margin ion-no-padding">{{'Order_time' | translate}}:<br>
-                  {{order.date_created | date:
+                <p class="ion_descText ion-no-margin ion-no-padding">{{'Order_time' | translate}}:
+                  {{order.createdAt | date:
                   "shortTime"}}</p>
                 <p>
-                  <ion-button class="See_details">{{'See_details' | translate}}</ion-button>
+                  <ion-button class="agregar">{{'See_details' | translate}}</ion-button>
                 </p>
               </ion-label>
             </ion-item>

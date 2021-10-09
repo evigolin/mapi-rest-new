@@ -15,6 +15,7 @@ import { HeaderLanguageComponent } from "./header-language/header-language.compo
 import { HeaderComponent } from "./header/header.component";
 
 import { LazyLoadImageModule, IntersectionObserverHooks, Attributes, LAZYLOAD_IMAGE_HOOKS } from 'ng-lazyload-image';
+import { PopoverDetailOrderComponent } from "./popover-detail-order/popover-detail-order.component";
 
 @Injectable()
 export class LazyLoadImageHooks extends IntersectionObserverHooks {
@@ -32,6 +33,7 @@ export class LazyLoadImageHooks extends IntersectionObserverHooks {
     NetworkComponent,
     HeaderLanguageComponent,
     HeaderComponent,
+    PopoverDetailOrderComponent,
 
   ],
   exports: [
@@ -40,6 +42,7 @@ export class LazyLoadImageHooks extends IntersectionObserverHooks {
     NetworkComponent,
     HeaderLanguageComponent,
     HeaderComponent,
+    PopoverDetailOrderComponent,
 
   ],
   imports: [

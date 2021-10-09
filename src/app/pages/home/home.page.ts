@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { PopoverDetailOrderComponent } from 'src/app/components/popover-detail-order/popover-detail-order.component';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ObservableService } from 'src/app/services/observable/observable.service';
 import { UtilsService } from 'src/app/services/utils/utils.service';
@@ -49,29 +50,30 @@ export class HomePage implements OnInit, OnDestroy {
     this.observableService._authUSelelected.subscribe(user => {
       if (user || user != null) {
         this.user = user;
-
-        this.ordersSubscription = this.apiService.getOrdersObservable(user.id_firebase).subscribe((orders) => {
-          console.log(orders);
-
-          if (orders) {
-            this.orders = orders;
-          }
-        });
       }
-
-      this.flag = false;
     });
+
   }
 
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
     if (this.ordersSubscription) {
-        this.ordersSubscription.unsubscribe();
+      this.ordersSubscription.unsubscribe();
     }
   }
 
   async ngOnInit() {
+
+    this.user = await this.observableService.getUserStorage();
+    this.ordersSubscription = this.apiService.getOrdersObservable(this.user.id_firebase).subscribe((orders) => {
+      console.log(orders);
+
+      if (orders) {
+        this.orders = orders;
+      }
+      this.flag = false;
+    });
   }
 
   filter() {
@@ -93,5 +95,19 @@ export class HomePage implements OnInit, OnDestroy {
       this.flag = false;
     }
   }
+  async presentPopover(order) {
+    const popover = await this.popoverController.create({
+      component: PopoverDetailOrderComponent,
+      cssClass: 'my-custom-class-orders',
+      translucent: true,
+      componentProps: {
+        order: order
+      }
+    });
 
+    popover.onDidDismiss();
+
+    await popover.present();
+
+  }
 }

@@ -59,7 +59,7 @@ export class ApiService {
         localStorage.setItem('user-vendor', null);
         JSON.parse(localStorage.getItem('user-vendor'));
       }
-    })
+    });
 
     // configuration
     this.user = 'Admint';
@@ -317,7 +317,7 @@ export class ApiService {
   SignOut() {
     return this.ngFireAuth.signOut().then(() => {
       localStorage.removeItem('user-vendor');
-      this.router.navigate(['login']);
+      // this.router.navigate(['login']);
     })
   }
 
