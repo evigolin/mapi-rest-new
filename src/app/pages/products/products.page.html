@@ -22,20 +22,18 @@
     *ngIf="img === null || img === undefined || img === ''">
   <div class="title-content">
     <h2 class="title-general">{{title}}</h2>
-    <p class="description" [innerHtml]="description"></p>
-    <p>
-      <ion-item class="ion-no-padding ion-no-margin ion_item">
-        <ion-text slot="start" style="margin-inline-end: 0em;">
-          {{'Today_Hours' | translate}}:
-        </ion-text>
-        <ion-text slot="end" style="margin-inline-start: 0em;">
-          <small>?? : ??</small> - <small>?? : ??</small>
-        </ion-text>
-        <!-- <ion-text slot="end" style="margin-inline-start: 0em;" *ngIf="schedule">
+    <div class="description" [innerHtml]="description"></div>
+    <ion-item class="ion-no-padding ion-no-margin ion_item">
+      <ion-text slot="start" style="margin-inline-end: 0em;">
+        {{'Today_Hours' | translate}}:
+      </ion-text>
+      <ion-text slot="end" style="margin-inline-start: 0em;">
+        <small>?? : ??</small> - <small>?? : ??</small>
+      </ion-text>
+      <!-- <ion-text slot="end" style="margin-inline-start: 0em;" *ngIf="schedule">
           {{schedule?.start}} - {{schedule?.end}}
         </ion-text> -->
-      </ion-item>
-    </p>
+    </ion-item>
   </div>
 
   <div class="line"></div>
@@ -69,12 +67,14 @@
             <ion-label>
               <h2 class="title_card_item">{{cats.name}}</h2>
               <ion-label class="">
-                <ion-text class="ion_descText_sub ion-no-margin ion-no-padding">{{ 'Description' | translate}}: </ion-text>
-                <p class="ion_descText ion-no-margin ion-no-padding" [innerHtml]="cats.description"></p>
+                <ion-text class="ion_descText_sub ion-no-margin ion-no-padding">{{ 'Description' | translate}}:
+                </ion-text>
+                <div class="ion_descText ion-no-margin ion-no-padding" [innerHtml]="cats.description"></div>
               </ion-label>
 
               <p class="ion_descText ion-no-margin ion-no-padding" *ngIf="cats.categories.length > 0">
-                <ion-text class="ion_descText_sub ion-no-margin ion-no-padding"> {{'Categories' | translate}}:</ion-text>
+                <ion-text class="ion_descText_sub ion-no-margin ion-no-padding"> {{'Categories' | translate}}:
+                </ion-text>
                 <ion-label class="ion_descText" *ngFor="let category of cats.categories">
                   - {{category.name}} <br>
                 </ion-label>

@@ -28,6 +28,9 @@ import { Storage } from '@ionic/storage-angular';
 import { TranslateLoader } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
 import { ComponentsModule } from './components/components.module';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -63,6 +66,9 @@ export function createTranslateLoader(http: HttpClient) {
       }
     ),
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule, // imports firebase/database, only needed for database features
+    AngularFireAuthModule,
+    AngularFirestoreModule,
 
   ],
   providers: [

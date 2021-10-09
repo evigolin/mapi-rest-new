@@ -223,7 +223,7 @@
   "payment": "payment",
   "Upon_delivery": "Upon delivery",
   "domicile": "domicile",
-  "No_Orders": "No Orders",
+  "No_Orders": "No orders placed",
   "Dishes": "Dishes",
   "See_details": "See Details",
   "Order_date": "Order Date",
@@ -258,5 +258,7 @@
   "my_products": "My Products",
   "postcode": "Postcode",
   "products": "Products",
-  "No_Products": "No Products"
+  "No_Products": "No Products",
+  "not_read": "Not Read",
+  "read": "Read"
 }

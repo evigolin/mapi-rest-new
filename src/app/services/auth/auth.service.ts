@@ -12,6 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 // import inteface
 import { User } from 'src/app/shared/user.class';
+import { ApiService } from '../api/api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,7 @@ export class AuthService {
     private menuCtrl: MenuController,
     private navCtrl: NavController,
     private translate: TranslateService,
+    private apiService: ApiService,
 
   ) {
     // header http
@@ -57,12 +59,13 @@ export class AuthService {
       ).toPromise()
         .then(
           async (response) => { // Success          
-            // console.log(response);
+            console.log(response);
 
             // get request the information of the logged in user
             await this.http.get(
               `${this.url}customers?role=wcfm_vendor&email=${response.user_email}`, this.httpOption
             ).toPromise<any>().then(async (result) => {
+              console.log(result);
 
               if (result.length === 0) {
                 let header = 'Error';
@@ -77,17 +80,23 @@ export class AuthService {
 
               const userProfile = result[0];
               let user = this.utilService.getObjectInformation(userProfile);
+              user['id'] = response.store_id;
               console.log(user);
 
               // save storage
               this.observableService.changeUserStorage(user);
+              console.log(user);
+              
               // active menu
               this.menuCtrl.enable(true);
               // dissmiss loading
-              await this.utilService.dismissLoading();
+              // await this.utilService.dismissLoading();
+
+              // verify and add in firebase
+              await this.apiService.verifyUserFirebase(user);
 
               // redirect
-              this.navCtrl.navigateRoot('/home');
+              // this.navCtrl.navigateRoot('/home');
 
             }).catch(async (err) => {
               console.log(err);
@@ -107,24 +116,25 @@ export class AuthService {
             });
 
           }).catch(async (errs) => {
-
             console.log(errs);
             let header = 'Error';
-            let message;
+            let message = '';
 
-            if (errs.error.code === '[jwt_auth] invalid_email') {
+            if (errs.error && errs.error.code && errs.error.code === '[jwt_auth] invalid_email') {
               message = 'Email_address_is_invalid';
-            } else if (errs.error.code === '[jwt_auth] incorrect_password') {
+            } else if (errs.error && errs.error.code && errs.error.code === '[jwt_auth] incorrect_password') {
               message = 'The_password_you_have_entered_is_incorrect.';
-            } else {
+            } else if (errs.status && (errs.status === 500 || errs.status === 0)) {
               message = 'Connection_error';
             }
 
             // dissmis loading
             await this.utilService.dismissLoading();
 
-            // alert
-            await this.utilService.alert(header, message);
+            if (message !== '') {
+              // alert
+              await this.utilService.alert(header, message);
+            }
 
           });
     });
@@ -157,13 +167,15 @@ export class AuthService {
         this.navCtrl.navigateRoot('/home');
 
       })
-      .catch(async (error) => {
-        console.log(error);
+      .catch(async (err) => {
+        console.log(err);
         await this.utilService.dismissLoading();
 
-        let header = 'Error';
-        let message = 'Connection_error'
-        this.utilService.alert(header, message);
+        if (err.status === 500 || err.status === 0) {
+          let header = 'Error';
+          let message = 'Connection_error'
+          this.utilService.alert(header, message);
+        }
 
       });
   }

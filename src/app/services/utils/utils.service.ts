@@ -17,6 +17,7 @@ export class UtilsService {
   // any
   loading: HTMLIonLoadingElement;
 
+  // string
   selected = '';
 
   constructor(
@@ -236,7 +237,7 @@ export class UtilsService {
           username: userInformation.email,
           first_name: userInformation.first_name,
           last_name: userInformation.last_name,
-          id: userInformation.id,
+          _id: userInformation.id,
           address: info.value.address.street_1,
           country: info.value.address.country,
           postcode: info.value.address.zip,

@@ -193,7 +193,7 @@
   "payment": "pago",
   "Upon_delivery": "ContraEntrega",
   "domicile": "Domicilio",
-  "No_Orders": "Sin Pedidos",
+  "No_Orders": "No orders placed",
   "Dishes":"Platos",
   "See_details": "Ver Detalles",
   "Order": "Pedido",
@@ -228,4 +228,7 @@
   "my_products": "Mis Productos",
   "postcode": "Código Postal",
   "products": "Productos",
-  "No_Products": "Sin Productos"
+  "No_Products": "Sin Productos",
+  "not_read": "No Leidos",
+  "read": "Leidos"
+}

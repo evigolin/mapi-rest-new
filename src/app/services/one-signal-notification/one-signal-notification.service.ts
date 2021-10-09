@@ -12,6 +12,7 @@ export class OneSignalNotificationService {
 
   // string
   url: 'https://onesignal/api/v1/notifications';
+  onesignal: string = '';
 
   constructor(
     private http: HttpClient,
@@ -22,23 +23,28 @@ export class OneSignalNotificationService {
     // header http
     this.httpOption = {
       headers: new HttpHeaders({
-        // 'content-type' : 'Application/json',
-        Authorization: "Basic " + "NWI5ZDFkNTAtMTM0MC00YmJiLWE3NzYtNjIwNjBiMmRiMDBl",
+        'Content-Type': 'application/json; charset=utf-8',
+        Authorization: "Basic NWI5ZDFkNTAtMTM0MC00YmJiLWE3NzYtNjIwNjBiMmRiMDBl",
       }),
     };
   }
 
   async sendNotification() {
     let data = {
-      app_id: '4bdc815f-6d10-480e-a61f-344d4f50f9d3',
-      included_segments: ['Active Users'],
+      app_id: 'c4f73897-aabd-4867-bc56-9673d99496d2',
+      include_player_ids: ['4bdc815f-6d10-480e-a61f-344d4f50f9d3'],
       heading: { en: 'My notification title' },
       contents: { en: 'So much content' },
       data: { task: 'Send' }
     };
 
     await this.http.post(
-      `${this.url}`, data, this.httpOption
+      `https://onesignal.com/api/v1/notifications`, data, {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "Authorization": "Basic NWI5ZDFkNTAtMTM0MC00YmJiLWE3NzYtNjIwNjBiMmRiMDBl"
+        }
+    }
     ).toPromise<any>()
       .then(async (response) => {
         console.log(response);
@@ -48,15 +54,14 @@ export class OneSignalNotificationService {
       })
       .catch(async (error) => {
         console.log(error);
-
-        // dissmis loading
-        await this.utilService.dismissLoading();
-
-        let header = 'Error';
-        let message = 'Please_check_your_connection';
-
-        // alert
-        this.utilService.alert(header, message);
       });
+  }
+
+  setIdOnesignal(id: string) {
+    this.onesignal = id;
+  }
+
+  getIdOnesignal() {
+    return this.onesignal;
   }
 }

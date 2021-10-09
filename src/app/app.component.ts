@@ -17,6 +17,7 @@ import { Storage } from '@ionic/storage-angular';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 
 @Component({
@@ -42,6 +43,8 @@ export class AppComponent implements OnInit {
   // subscription
   connectSubscription: Subscription;
 
+  userData: any;
+
   constructor(
     private platform: Platform,
     private statusBarService: StatusBar,
@@ -55,6 +58,8 @@ export class AppComponent implements OnInit {
     private oneSignalService: OneSignalNotificationService,
     private observableService: ObservableService,
     private navCtrl: NavController,
+    public ngFireAuth: AngularFireAuth,
+    
   ) {
     this.initStorage();
   }
@@ -116,6 +121,7 @@ export class AppComponent implements OnInit {
     // TOKEN ONESIGNAL
     this.oneSignal.getIds().then(async (result) => {
       console.log('=== OneSignal Token ===> ', result);
+      this.oneSignalService.setIdOnesignal(result.userId);
     });
 
     this.oneSignal.inFocusDisplaying(
@@ -178,10 +184,10 @@ export class AppComponent implements OnInit {
   }
 
   async getStorageUser() {
-    await this.storage.get('vendor').then(async(user) => {
+    await this.storage.get('vendor').then(async (user) => {
       console.log(user);
 
-      if (user != null) {
+      if (user !== null) {
         this.user = user;
         await this.observableService.changeUserStorage(user);
         this.navCtrl.navigateRoot('/home');

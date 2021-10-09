@@ -12,6 +12,7 @@ import { TranslateService } from "@ngx-translate/core";
 // import archive
 import { menu, menus } from '../_archives/archivo.data';
 import { menuInfo, menusInfo } from '../_archives/menuInfo.data';
+import { ApiService } from "src/app/services/api/api.service";
 
 @Component({
   selector: "app-menu",
@@ -48,7 +49,8 @@ export class MenuComponent implements OnInit {
     private navCtrl: NavController,
     public utilService: UtilsService,
     private cdr: ChangeDetectorRef,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private apiService: ApiService,
 
   ) {
     this.languages = this.utilService.getLanguages();
@@ -82,10 +84,27 @@ export class MenuComponent implements OnInit {
   }
 
   async logout() {
-    await this.observableService.removeStorageUser();
-    await this.observableService.cacheClear();
-    this.user = null;
-    this.navCtrl.navigateRoot('/login');
-    this.menuCtrl.enable(false);
+    this.utilService.presentLoading(this.translate.instant('Processing'));
+    this.apiService.SignOut().then(async (result) => {
+      console.log(result);
+
+      await this.observableService.removeStorageUser();
+      await this.observableService.cacheClear();
+      this.user = null;
+
+       // loading dismiss
+      this.utilService.dismissLoading();
+
+      // redirect
+      this.navCtrl.navigateRoot('/login');
+      this.menuCtrl.enable(false);
+
+    }).catch(error => {
+      console.log(error);
+
+      // loading dismiss
+      this.utilService.dismissLoading();
+    });
+
   }
 }
