@@ -36,6 +36,7 @@
     "cordova-plugin-splashscreen": "^6.0.0",
     "cordova-plugin-statusbar": "^2.4.3",
     "firebase": "^9.0.0",
+    "moment": "^2.29.1",
     "ng-lazyload-image": "^9.1.0",
     "ngx-custom-validators": "^8.0.0",
     "rxfire": "^6.0.0",

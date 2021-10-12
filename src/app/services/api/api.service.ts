@@ -190,7 +190,7 @@ export class ApiService {
     // check the user exists by logging in
     await this.SignIn(userAuth.email, password).then(async (result) => {
       console.log(result);
-      
+
       // Obtaining information from the database
       await this.getUserRestaurantEmail(userAuth.email).then(async (resp) => {
         console.log(resp);
@@ -200,7 +200,7 @@ export class ApiService {
         userAuth['id_firebase'] = vendor['_id'];
         console.log(userAuth);
 
-       // update user localStorage
+        // update user localStorage
         await this.observableService.changeUserStorage(userAuth);
 
         // dissmiss loading
@@ -318,7 +318,11 @@ export class ApiService {
     return this.ngFireAuth.signOut().then(() => {
       localStorage.removeItem('user-vendor');
       // this.router.navigate(['login']);
-    })
+    }).catch(err => {
+      console.log(err);
+      // loading dismiss
+      this.utilService.dismissLoading();
+    });
   }
 
   async getRestaurant(userAuth, password) {
@@ -329,7 +333,7 @@ export class ApiService {
       // add restaurant in database
       await this.addVendor(userAuth).then(async (result) => {
         console.log(result._id);
-        
+
         userAuth['id_firebase'] = result._id;
 
         // update user localStorage

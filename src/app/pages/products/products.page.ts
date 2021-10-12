@@ -20,6 +20,7 @@ export class ProductsPage implements OnInit {
   img: any;
   description: any;
   user: any;
+  schedule: any;
 
   // boolean
   flag: boolean = false;
@@ -43,6 +44,7 @@ export class ProductsPage implements OnInit {
     this.description = this.user.description;
     this.img = this.user.img;
     let controlCategories = await this.observableService.getControlCategories();
+    this.schedule = await this.observableService.getSchedule();
 
     if (!controlCategories) {
 

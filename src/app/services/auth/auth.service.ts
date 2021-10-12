@@ -85,6 +85,8 @@ export class AuthService {
 
               // save storage
               this.observableService.changeUserStorage(user);
+              // schedule storage
+              await this.observableService.changeSchedule(user.store_hours.day_times);
               console.log(user);
               
               // active menu

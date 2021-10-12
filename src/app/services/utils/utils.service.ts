@@ -244,7 +244,8 @@ export class UtilsService {
           state: info.value.address.state,
           city: info.value.address.city,
           title: info.value.store_name,
-          description: info.value.shop_description
+          description: info.value.shop_description,
+          store_hours: info.value['wcfm_store_hours'] ? info.value['wcfm_store_hours'] : ''
         };
 
         return user;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Storage } from "@ionic/storage-angular";
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,9 @@ export class ObservableService {
 
   // initialize departaments
   private _controlUpdate = new BehaviorSubject<boolean | null>(false);
+
+  // initialize schedule
+  private _schedule = new BehaviorSubject<any[] | null>([]);
 
   constructor(
     private storage: Storage,
@@ -96,6 +100,23 @@ export class ObservableService {
 
   async removeControlUpdate() {
     this._controlUpdate.next(false);
+  }
+
+  // <<<<<<<<<<<<<<<<<<<<<<<<< message >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+  async changeSchedule(schedule: any[]) {
+    this._schedule.next(schedule);
+  }
+
+  async getSchedule() {
+    let day = (moment().weekday());
+    let schedule_hours = this._schedule.getValue();
+    let weekDay = schedule_hours[day];
+    return weekDay[0];
+  }
+
+  async removeSchedule() {
+    this._schedule.next([]);
   }
 
   // <<<<<<<<<<<<<<<<<<<<<<<<< cache clear >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

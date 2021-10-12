@@ -15,7 +15,7 @@ ion-content {
     color: white;
     z-index: 999;
     margin: 5%;
-    margin-top: 10%;
+    // margin-top: 10%;
 }
 
 .line {
@@ -125,6 +125,7 @@ ion-content {
 .ion_descText_sub {
     color: white;
     font-size: 15px;
+    margin-top: 1rem;
 }
 
 .products {
@@ -188,7 +189,8 @@ ion-content {
     padding: 10px;
     border-radius: 1rem;
     color: white;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
+    margin-bottom: 5px;
     flex-direction: inherit;
     align-items: center;
     align-self: center;
@@ -204,6 +206,8 @@ ion-content {
     font-weight: bold;
     color: white;
     margin-bottom: 0em;
+    white-space: normal;
+    margin-bottom: 0.5rem;
 }
 
 .ion_label_home {

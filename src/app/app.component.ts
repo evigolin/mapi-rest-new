@@ -190,6 +190,10 @@ export class AppComponent implements OnInit {
       if (user !== null) {
         this.user = user;
         await this.observableService.changeUserStorage(user);
+        // schedule storage
+        console.log(user.store_hours.day_times);
+        
+        await this.observableService.changeSchedule(user.store_hours.day_times);
         this.navCtrl.navigateRoot('/home');
 
       } else {

@@ -14,10 +14,10 @@
 <ion-content>
   <div class="content">
     <div class="content-pedidos">
-      <ion-item style="background: transparent;--background: transparent;--inner-padding-end: 0em;">
-        <!-- <ion-text slot="start" style="--inner-padding-end: 0em;">
+      <ion-item style="background: transparent;--background: transparent;--inner-padding-end: 0em;text-align: center;">
+        <ion-text style="--inner-padding-end: 0em;width: 100%;">
           <h3 class="txt-light title">{{'My_orders' | translate}}</h3>
-        </ion-text> -->
+        </ion-text>
 
         <!-- <ion-text slot="start" style="--inner-padding-end: 0em;margin-inline-end: 0em;">
           <ion-select (ionChange)="filter()" [(ngModel)]="orderSelected" okText="Ok" cancelText="Cancel"
@@ -50,7 +50,8 @@
       <ng-container *ngIf="!flag && orders.length === 0">
         <ion-grid class="ion-text-center">
           <ion-row>
-            <ion-col class="ion_col_spinner">
+            <ion-col class="ion_col_spinner" style="margin-top: 5rem;
+            ">
               <ion-label class="ion_label_home">
                 {{'No_Orders' | translate}}
               </ion-label>
