@@ -194,19 +194,29 @@ export class ApiService {
       // Obtaining information from the database
       await this.getUserRestaurantEmail(userAuth.email).then(async (resp) => {
         console.log(resp);
-
         let vendor = Object.values(resp.val())[0];
         console.log(vendor['_id']);
         userAuth['id_firebase'] = vendor['_id'];
         console.log(userAuth);
 
-        // update user localStorage
-        await this.observableService.changeUserStorage(userAuth);
+        await this.setIdOnesignal(userAuth['id_firebase']).then(async (result) => {
+          console.log(result);
 
-        // dissmiss loading
-        await this.utilService.dismissLoading();
-        // redirect
-        this.navCtrl.navigateRoot('/home');
+          // update user localStorage
+          await this.observableService.changeUserStorage(userAuth);
+
+          // dissmiss loading
+          await this.utilService.dismissLoading();
+          // redirect
+          this.navCtrl.navigateRoot('/home');
+
+        }).catch(async (errs) => {
+          console.log(errs);
+          // dissmiss loading
+          await this.utilService.dismissLoading();
+          // redirect
+          this.navCtrl.navigateRoot('/home');
+        });
 
       }).catch(async (err) => {
         console.log(err);
@@ -314,16 +324,27 @@ export class ApiService {
   }
 
   // Sign-out 
-  SignOut() {
-    return this.ngFireAuth.signOut().then(() => {
-      localStorage.removeItem('user-vendor');
-      // this.router.navigate(['login']);
+  async SignOut() {
+
+
+    return await this.removeIdOnesignal().then(async () => {
+      return await this.ngFireAuth.signOut().then(async () => {
+        localStorage.removeItem('user-vendor');
+        // this.router.navigate(['login']);
+
+      }).catch(errs => {
+        console.log(errs);
+
+      });
+
     }).catch(err => {
       console.log(err);
       // loading dismiss
       this.utilService.dismissLoading();
     });
   }
+
+
 
   async getRestaurant(userAuth, password) {
 
@@ -359,12 +380,12 @@ export class ApiService {
 
   }
 
-  async setIdOnesignal() {
+  async setIdOnesignal(id_firebase: string) {
     let user = await this.observableService.getUserStorage();
-    const vendorRefDB = this.firedb.list<any>(`vendors/${user.id_firebase}`);
+    const vendorRefDB = this.firedb.list<any>(`vendors/${id_firebase}`);
     let _id_onesignal = this.oneSignalService.getIdOnesignal();
 
-    return vendorRefDB.set('_id_onesignal', _id_onesignal).then(async(result) => {
+    return vendorRefDB.set('_id_onesignal', _id_onesignal).then(async (result) => {
       user['_id_onesignal'] = _id_onesignal;
       await this.observableService.changeUserStorage(user);
       return user;
