@@ -130,28 +130,36 @@ export class AppComponent implements OnInit {
       this.oneSignal.OSInFocusDisplayOption.None
     );
 
-    this.oneSignal.handleNotificationReceived().subscribe((data) => {
+    this.oneSignal.handleNotificationReceived().subscribe(async (data) => {
       console.log(data);
+      let user = await this.observableService.getUserStorage();
 
-      let msg = data.payload.body;
-      let title = data.payload.title;
-      let additionalData = data.payload.additionalData;
-      this.utilService.getAlertNotification(
-        title,
-        msg,
-        // additionalData.task = ''
-      );
+      if (user) {
+        let msg = data.payload.body;
+        let title = data.payload.title;
+        let additionalData = data.payload.additionalData;
+        this.utilService.getAlertNotification(
+          title,
+          msg,
+          // additionalData.task = ''
+        );
+      }
+
     });
 
-    this.oneSignal.handleNotificationOpened().subscribe((data) => {
+    this.oneSignal.handleNotificationOpened().subscribe(async (data) => {
       console.log(data);
       let additionalData = data.notification.payload.additionalData;
 
-      this.utilService.getAlertNotification(
-        'Notification opened',
-        'You already read this before',
-        // additionalData.task
-      );
+      let user = await this.observableService.getUserStorage();
+
+      if (user) {
+        this.utilService.getAlertNotification(
+          'Notification opened',
+          'You already read this before',
+          // additionalData.task
+        );
+      }
     });
 
     this.oneSignal.endInit();
