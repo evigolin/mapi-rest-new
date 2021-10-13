@@ -266,5 +266,6 @@
   "payment_method": "Payment Method",
   "hour": "Hour",
   "Closing_session": "Closing session",
-  "close": "Close"
+  "close": "Close",
+  "Hello_you_have_a_new_order": "Hello, you have a new order!!"
 }

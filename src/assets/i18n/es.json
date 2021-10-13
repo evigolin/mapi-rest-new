@@ -236,5 +236,6 @@
   "payment_method": "Método de Pago",
   "hour": "Hora",
   "Closing_session": "Cerrando sesión",
-  "close": "Cerrar"
+  "close": "Cerrar",
+  "Hello_you_have_a_new_order": "Hola, tienes un pedido nuevo!!"
 }
