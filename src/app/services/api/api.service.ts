@@ -48,18 +48,18 @@ export class ApiService {
   ) {
 
     // user localStorage
-    this.ngFireAuth.authState.subscribe(user => {
-      console.log(user);
+    // this.ngFireAuth.authState.subscribe(user => {
+    //   console.log(user);
 
-      if (user) {
-        this.userData = user;
-        localStorage.setItem('user-vendor', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user-vendor'));
-      } else {
-        localStorage.setItem('user-vendor', null);
-        JSON.parse(localStorage.getItem('user-vendor'));
-      }
-    });
+    //   if (user) {
+    //     this.userData = user;
+    //     localStorage.setItem('user-vendor', JSON.stringify(this.userData));
+    //     JSON.parse(localStorage.getItem('user-vendor'));
+    //   } else {
+    //     localStorage.setItem('user-vendor', null);
+    //     JSON.parse(localStorage.getItem('user-vendor'));
+    //   }
+    // });
 
     // configuration
     this.user = 'Admint';
@@ -357,6 +357,25 @@ export class ApiService {
       await this.utilService.dismissLoading();
     });
 
+  }
+
+  async setIdOnesignal() {
+    let user = await this.observableService.getUserStorage();
+    const vendorRefDB = this.firedb.list<any>(`vendors/${user.id_firebase}`);
+    let _id_onesignal = this.oneSignalService.getIdOnesignal();
+
+    return vendorRefDB.set('_id_onesignal', _id_onesignal).then(async(result) => {
+      user['_id_onesignal'] = _id_onesignal;
+      await this.observableService.changeUserStorage(user);
+      return user;
+    });
+  }
+
+  async removeIdOnesignal() {
+    let user = await this.observableService.getUserStorage();
+    const vendorRefDB = this.firedb.list<any>(`vendors/${user.id_firebase}/_id_onesignal`);
+
+    return await vendorRefDB.remove();
   }
 
   // ===================================== Observables =================================

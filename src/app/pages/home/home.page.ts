@@ -66,14 +66,18 @@ export class HomePage implements OnInit, OnDestroy {
   async ngOnInit() {
 
     this.user = await this.observableService.getUserStorage();
-    this.ordersSubscription = this.apiService.getOrdersObservable(this.user.id_firebase).subscribe((orders) => {
-      console.log(orders);
 
-      if (orders) {
-        this.orders = orders;
-      }
-      this.flag = false;
-    });
+    if (this.user) {
+      this.ordersSubscription = this.apiService.getOrdersObservable(this.user.id_firebase).subscribe((orders) => {
+        console.log(orders);
+
+        if (orders) {
+          this.orders = orders;
+        }
+        this.flag = false;
+      });
+    }
+
   }
 
   filter() {

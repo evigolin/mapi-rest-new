@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
     private observableService: ObservableService,
     private navCtrl: NavController,
     public ngFireAuth: AngularFireAuth,
-    
+
   ) {
     this.initStorage();
   }
@@ -85,6 +85,9 @@ export class AppComponent implements OnInit {
       this.statusBarService.styleDefault();
       this.splashScreen.hide();
 
+      // Initial App Language
+      await this.utilService.setInitialAppLanguage();
+
       if (this.platform.is('cordova')) {
         this.setupPush();
       }
@@ -92,8 +95,7 @@ export class AppComponent implements OnInit {
       // Check if there is a user saved in the phone storage
       await this.getStorageUser();
 
-      // Initial App Language
-      await this.utilService.setInitialAppLanguage();
+
 
       this.controlHardwareButton();
 
@@ -185,14 +187,10 @@ export class AppComponent implements OnInit {
 
   async getStorageUser() {
     await this.storage.get('vendor').then(async (user) => {
-      console.log(user);
-
       if (user !== null) {
         this.user = user;
         await this.observableService.changeUserStorage(user);
         // schedule storage
-        console.log(user.store_hours.day_times);
-        
         await this.observableService.changeSchedule(user.store_hours.day_times);
         this.navCtrl.navigateRoot('/home');
 

@@ -26,14 +26,18 @@ export class HeaderLanguageComponent implements OnInit {
 
   ) {
     this.languages = this.utilService.getLanguages();
+
   }
 
   ngOnInit() {
-    this.selected = this.utilService.selected;
+
+    setTimeout(() => {
+      this.selected = this.utilService.selected;
+    }, 900);
 
     this.ngZone.run(_ => {
       this.cdr.detectChanges();
-    })
+    });
 
   }
 

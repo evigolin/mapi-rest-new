@@ -47,6 +47,9 @@ export class UtilsService {
         this.selected = language;
       }
     });
+
+    console.log(this.selected);
+    
   }
 
   getLanguages() {

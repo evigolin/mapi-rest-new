@@ -115,7 +115,7 @@
   "Description": "Descripción",
   "ShowReviews": "Ver críticas",
   "Reviews": "opiniones",
-  "Products": "productos",
+  "Products": "Productos",
   "Categories": "Categorías",
   "Add": "Añadir",
   "Saving...": "Ahorro...",
@@ -230,5 +230,11 @@
   "products": "Productos",
   "No_Products": "Sin Productos",
   "not_read": "No Leidos",
-  "read": "Leidos"
+  "read": "Leidos",
+  "Buyer": "Comprador",
+  "Shipping_Address": "Dirección de envío",
+  "payment_method": "Método de Pago",
+  "hour": "Hora",
+  "Closing_session": "Cerrando sesión",
+  "close": "Cerrar"
 }

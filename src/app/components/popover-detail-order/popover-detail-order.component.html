@@ -1,7 +1,7 @@
 <ion-content>
   <ion-list>
     <ion-list-header class="title ion-text-center" style="text-align: center;">
-      <h2 style="color: white;text-align: center;width: 100%;margin-bottom: 1.5rem;font-weight: bold;">{{'order' | translate}} #{{order.number}}</h2>
+      <h2 style="color: white;text-align: center;width: 100%;margin-bottom: 1.5rem;font-weight: bold;">{{'Order' | translate}} #{{order.number}}</h2>
     </ion-list-header>
 
     <ion-item lines="none" style="--min-height: 22px;">
@@ -10,7 +10,7 @@
     </ion-item>
 
     <ion-item lines="none" style="--min-height: 22px;">
-      <ion-text slot="start" style="color: white;">{{'Hour' | translate}}</ion-text>
+      <ion-text slot="start" style="color: white;">{{'hour' | translate}}</ion-text>
       <ion-text slot="end" style="color: white;">{{order.createdAt | date: "shortTime"}}</ion-text>
     </ion-item>
 

@@ -50,8 +50,7 @@
       <ng-container *ngIf="!flag && orders.length === 0">
         <ion-grid class="ion-text-center">
           <ion-row>
-            <ion-col class="ion_col_spinner" style="margin-top: 5rem;
-            ">
+            <ion-col class="ion_col_spinner" style="margin-top: 5rem;">
               <ion-label class="ion_label_home">
                 {{'No_Orders' | translate}}
               </ion-label>
@@ -61,8 +60,51 @@
       </ng-container>
 
       <ng-container *ngIf="!flag && orders && orders.length !== 0">
-        <ion-list class="products">
-          <!-- <ion-list-header class="title-cat">Pedidos</ion-list-header> -->
+        <ion-grid class="products">
+          <ion-row *ngFor="let order of orders" class="ion_item_img ion-no-margin ion-no-padding"
+            (click)="presentPopover(order)">
+            <ion-col size="12">
+              <h2 class="title_card_item">{{'Order' | translate}} #{{order.number}}</h2>
+              <p class="ion_descText ion-no-margin ion-no-padding">{{'Buyer' | translate}}:
+                {{order.user_name}}
+              </p>
+              <p style="margin-bottom: 0rem;" class="ion_descText ion-no-margin ion-no-padding">{{'Shipping_Address' |
+                translate}}:
+                {{order.address_orders.address_shipping.address}}, {{order.address_orders.address_shipping.state}},
+                {{order.address_orders.address_shipping.city}}
+              </p>
+            </ion-col>
+            <ion-col size="6">
+              <p class="ion_descText ion-no-margin ion-no-padding">{{'Phone' | translate}}:
+                {{order.phone}}
+              </p>
+              <p class="ion_descText ion-no-margin ion-no-padding">
+                {{'Email' | translate}}: {{order.email}}
+              </p>
+              <p class="ion_descText ion-no-margin ion-no-padding">{{'payment_method' | translate}}: <br>
+                {{order.payment_metod}}
+              </p>
+              <p class="ion_descText ion-no-margin ion-no-padding">Total
+                $ {{order.total}}
+              </p>
+              <p class="ion_descText ion-no-margin ion-no-padding">{{'Order_date' | translate}}: <br>
+                {{order.createdAt | date:
+                'dd/MM/yyyy'}}
+              </p>
+              <p class="ion_descText ion-no-margin ion-no-padding">{{'Order_time' | translate}}: <br>
+                {{order.createdAt | date:
+                "shortTime"}}
+              </p>
+              <p>
+                <ion-button class="agregar">{{'See_details' | translate}}</ion-button>
+              </p>
+            </ion-col>
+            <ion-col size="6" style="margin: auto;">
+              <img class="ion_img_detail" src="{{'assets/imgs/pedido.jpeg' }}" />
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <!-- <ion-list class="products">
           <div class="ion_div_detail" *ngFor="let order of orders">
             <h2 class="title_card_item">{{'Order' | translate}} #{{order.number}}</h2>
             <ion-item class="ion_item_img ion-no-margin ion-no-padding" (click)="presentPopover(order)">
@@ -70,37 +112,43 @@
                 <img class="ion_img_detail" src="{{'assets/imgs/pedido.jpeg' }}" />
               </ion-thumbnail>
               <ion-label>
-                <p class="ion_descText ion-no-margin ion-no-padding">{{'Comprador' | translate}}:
-                  {{order.user_name}}</p>
+                <p class="ion_descText ion-no-margin ion-no-padding">{{'Buyer' | translate}}:
+                  {{order.user_name}}
+                </p>
                 <p>
-                <p class="ion_descText ion-no-margin ion-no-padding">{{'Direccion de envio' | translate}}:
+                <p class="ion_descText ion-no-margin ion-no-padding">{{'Shipping_Address' |
+                  translate}}:
                   {{order.address_orders.address_shipping.address}}, {{order.address_orders.address_shipping.state}},
-                  {{order.address_orders.address_shipping.city}}</p>
+                  {{order.address_orders.address_shipping.city}}
+                </p>
                 <p>
                 <p class="ion_descText ion-no-margin ion-no-padding">{{'phone' | translate}}:
-                  {{order.phone}}</p>
-                <p>
-                <p class="ion_descText ion-no-margin ion-no-padding">{{'email' | translate}}:
-                  {{order.email}}</p>
-                <p>
-                <p class="ion_descText ion-no-margin ion-no-padding">{{'metodo de pago' | translate}}:
-                  {{order.payment_metod}}</p>
-                <p>
+                  {{order.phone}}
+                </p>
+                <p class="ion_descText ion-no-margin ion-no-padding">
+                  {{'email' | translate}}: {{order.email}}
+                </p>
+                <p class="ion_descText ion-no-margin ion-no-padding">{{'payment_method' | translate}}: <br>
+                  {{order.payment_metod}}
+                </p>
                 <p class="ion_descText ion-no-margin ion-no-padding" style="font-size: 16px;font-weight: bold;">Total
-                  $ {{order.total}}</p>
-                <p class="ion_descText ion-no-margin ion-no-padding">{{'Order_date' | translate}}:
+                  $ {{order.total}}
+                </p>
+                <p class="ion_descText ion-no-margin ion-no-padding">{{'Order_date' | translate}}: <br>
                   {{order.createdAt | date:
-                  'dd/MM/yyyy'}}</p>
-                <p class="ion_descText ion-no-margin ion-no-padding">{{'Order_time' | translate}}:
+                  'dd/MM/yyyy'}}
+                </p>
+                <p class="ion_descText ion-no-margin ion-no-padding">{{'Order_time' | translate}}: <br>
                   {{order.createdAt | date:
-                  "shortTime"}}</p>
+                  "shortTime"}}
+                </p>
                 <p>
                   <ion-button class="agregar">{{'See_details' | translate}}</ion-button>
                 </p>
               </ion-label>
             </ion-item>
           </div>
-        </ion-list>
+        </ion-list> -->
       </ng-container>
 
     </div>
