@@ -239,5 +239,7 @@
   "close": "Cerrar",
   "Hello_you_have_a_new_order": "Hola, tiene un nuevo pedido!!",
   "Unit": "Unidad",
-  "Detail_order": "Detalle del Pedido"
+  "Detail_order": "Detalle del Pedido",
+  "Apparently_something_is_wrong_try_again": "Al parecer algo no anda bien... ¿Desea intentarlo de nuevo?",
+  "yes": "Si"
 }

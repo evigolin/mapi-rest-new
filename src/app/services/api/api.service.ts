@@ -11,8 +11,9 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { UserFirebase, UserObject } from 'src/app/shared/user.class';
-import { NavController } from '@ionic/angular';
+import { AlertController, MenuController, NavController } from '@ionic/angular';
 import { UtilsService } from '../utils/utils.service';
+import { TranslateService } from '@ngx-translate/core';
 // import 'firebase/compat/database';
 
 @Injectable({
@@ -44,6 +45,9 @@ export class ApiService {
     private afStore: AngularFirestore,
     private navCtrl: NavController,
     private utilService: UtilsService,
+    public menuCtrl: MenuController,
+    private alertCtrl: AlertController,
+    private translate: TranslateService,
 
   ) {
 
@@ -119,58 +123,6 @@ export class ApiService {
     });
   }
 
-  // //LISTAR
-  // getListVendor() {
-  //   return this.firedb.database
-  //     .ref('vendor')
-  //     .orderByChild('createdAt')
-  //     .get();
-  // }
-
-  // //ACTUALIZAR DESTRUCTIVO
-  // updateDestructiveVendor(
-  //   idVendor: string,
-  //   formUdpate: {
-  //     nameEn: string;
-  //     nameEs: string;
-  //     imageUrl: string;
-  //     imagePath: string;
-  //     status: boolean;
-  //   }
-  // ) {
-  //   this.vendorRefDB.set(idVendor, {
-  //     _id: idVendor,
-  //     name: {
-  //       en: formUdpate.nameEn,
-  //       es: formUdpate.nameEs,
-  //     },
-  //     status: formUdpate.status,
-  //     updatedAt: firebase.database.ServerValue.TIMESTAMP,
-  //   });
-  // }
-
-  // //ACTUALIZAR NORMAL
-  // updateVendor(
-  //   idVendor: string,
-  //   formUdpate: {
-  //     nameEn: string;
-  //     nameEs: string;
-  //     imageUrl: string;
-  //     imagePath: string;
-  //     status: boolean;
-  //   }
-  // ) {
-  //   return this.vendorRefDB.update(idVendor, {
-  //     _id: idVendor,
-  //     name: {
-  //       en: formUdpate.nameEn,
-  //       es: formUdpate.nameEs,
-  //     },
-  //     status: formUdpate.status,
-  //     updatedAt: firebase.database.ServerValue.TIMESTAMP,
-  //   });
-  // }
-
   //ELMINAR
   removeVendor(idVendor: string) {
     return this.vendorRefDB.remove(idVendor);
@@ -187,20 +139,17 @@ export class ApiService {
   async verifyUserFirebase(userAuth) {
     let password = userAuth.email.replace("@", "") + userAuth.email.replace("@", "");
 
-    // check the user exists by logging in
+    /////////////////// check the user exists by logging in //////////////////////////
     await this.SignIn(userAuth.email, password).then(async (result) => {
-      console.log(result);
 
-      // Obtaining information from the database
+      /////////////////// Obtaining information from the database ////////////////////
       await this.getUserRestaurantEmail(userAuth.email).then(async (resp) => {
-        console.log(resp);
-        let vendor = Object.values(resp.val())[0];
-        console.log(vendor['_id']);
-        userAuth['id_firebase'] = vendor['_id'];
-        console.log(userAuth);
 
+        let vendor = Object.values(resp.val())[0];
+        userAuth['id_firebase'] = vendor['_id'];
+
+        ////////////////////////////////// set id onesignal in firebase ///////////////
         await this.setIdOnesignal(userAuth['id_firebase']).then(async (result) => {
-          console.log(result);
 
           // update user localStorage
           await this.observableService.changeUserStorage(userAuth);
@@ -212,19 +161,58 @@ export class ApiService {
 
         }).catch(async (errs) => {
           console.log(errs);
-          // dissmiss loading
-          await this.utilService.dismissLoading();
-          // redirect
-          this.navCtrl.navigateRoot('/home');
+
+          if (errs.status && (errs.status === 500 || errs.status === 0)) {
+            let header = 'Error';
+            let message = 'Connection_error';
+
+            // alert
+            await this.utilService.alert(header, message);
+
+            await this.observableService.removeStorageUser();
+            await this.observableService.cacheClear();
+            this.user = null;
+
+            // loading dismiss
+            this.utilService.dismissLoading();
+
+            // redirect
+            this.navCtrl.navigateRoot('/login');
+            this.menuCtrl.enable(false);
+          }
         });
+
+        /////////////////////////////////////////////////////////////////////////////
 
       }).catch(async (err) => {
         console.log(err);
-        // dissmiss loading
-        await this.utilService.dismissLoading();
-        // redirect
-        this.navCtrl.navigateRoot('/home');
+
+        if (err.status && (err.status === 500 || err.status === 0)) {
+          let header = 'Error';
+          let message = 'Connection_error';
+
+          // alert
+          await this.utilService.alert(header, message);
+
+          await this.observableService.removeStorageUser();
+          await this.observableService.cacheClear();
+          this.user = null;
+
+          // loading dismiss
+          this.utilService.dismissLoading();
+
+          // redirect
+          this.navCtrl.navigateRoot('/login');
+          this.menuCtrl.enable(false);
+
+        } else {
+          let header = 'Error';
+          let message = 'Apparently_something_is_wrong_try_again';
+          await this.alertOption(header, message, userAuth);
+        }
       });
+
+      /////////////////////////////////////////////////////////////////////////////
 
     }, async (error) => {
       console.log(error);
@@ -234,7 +222,8 @@ export class ApiService {
       // Unregistered user
       if (errorCode === 'auth/user-not-found') {
 
-        // registering user
+        ///////////////////////// registering user ////////////////////////////////
+
         await this.RegisterUser().then(async (userCredential) => {
 
           // Signed in
@@ -246,10 +235,61 @@ export class ApiService {
         }).catch(async (error) => {
           // dissmiss loading
           await this.utilService.dismissLoading();
+
+          if (error.status && (error.status === 500 || error.status === 0)) {
+            let header = 'Error';
+            let message = 'Connection_error';
+
+            // alert
+            await this.utilService.alert(header, message);
+
+            await this.observableService.removeStorageUser();
+            await this.observableService.cacheClear();
+            this.user = null;
+
+            // loading dismiss
+            this.utilService.dismissLoading();
+
+            // redirect
+            this.navCtrl.navigateRoot('/login');
+            this.menuCtrl.enable(false);
+
+          } else {
+            let header = 'Error';
+            let message = 'Apparently_something_is_wrong_try_again';
+            await this.alertOption(header, message, userAuth);
+          }
           // ..
         });
+
+        /////////////////////////////////////////////////////////////////////////////
+
+      } else if (error.status && (error.status === 500 || error.status === 0)) {
+        let header = 'Error';
+        let message = 'Connection_error';
+
+        // alert
+        await this.utilService.alert(header, message);
+
+        await this.observableService.removeStorageUser();
+        await this.observableService.cacheClear();
+        this.user = null;
+
+        // loading dismiss
+        this.utilService.dismissLoading();
+
+        // redirect
+        this.navCtrl.navigateRoot('/login');
+        this.menuCtrl.enable(false);
+
+      } else {
+        let header = 'Error';
+        let message = 'Apparently_something_is_wrong_try_again';
+        await this.alertOption(header, message, userAuth);
       }
+
     });
+    ////////////////////////////////////////////////////////////////////////////////
 
   }
 
@@ -326,21 +366,48 @@ export class ApiService {
   // Sign-out 
   async SignOut() {
 
-
     return await this.removeIdOnesignal().then(async () => {
-      return await this.ngFireAuth.signOut().then(async () => {
-        localStorage.removeItem('user-vendor');
-        // this.router.navigate(['login']);
 
-      }).catch(errs => {
+      return await this.ngFireAuth.signOut().then(async () => {
+        // localStorage.removeItem('user-vendor');
+        // this.router.navigate(['login']);
+        // loading dismiss
+        this.utilService.dismissLoading();
+
+      }).catch(async (errs) => {
         console.log(errs);
+
+        await this.observableService.removeStorageUser();
+        await this.observableService.cacheClear();
+        this.user = null;
+
+        // loading dismiss
+        this.utilService.dismissLoading();
+
+        // redirect
+        this.navCtrl.navigateRoot('/login');
+        this.menuCtrl.enable(false);
 
       });
 
-    }).catch(err => {
-      console.log(err);
+    }).catch(async (error) => {
+      console.log(error);
       // loading dismiss
       this.utilService.dismissLoading();
+
+      if (error.status && (error.status === 500 || error.status === 0)) {
+        let header = 'Error';
+        let message = 'Connection_error';
+
+        // alert
+        await this.utilService.alert(header, message);
+
+      } else {
+
+        let header = 'Error';
+        let message = 'Apparently_something_is_wrong_try_again';
+        await this.alertCloseSe(header, message);
+      }
     });
   }
 
@@ -369,13 +436,63 @@ export class ApiService {
         console.log(err);
         // dissmiss loading
         await this.utilService.dismissLoading();
+
+        if (err.status && (err.status === 500 || err.status === 0)) {
+          let header = 'Error';
+          let message = 'Connection_error';
+
+          // alert
+          await this.utilService.alert(header, message);
+
+          await this.observableService.removeStorageUser();
+          await this.observableService.cacheClear();
+          this.user = null;
+
+          // loading dismiss
+          this.utilService.dismissLoading();
+
+          // redirect
+          this.navCtrl.navigateRoot('/login');
+          this.menuCtrl.enable(false);
+
+        } else {
+          let header = 'Error';
+          let message = 'Apparently_something_is_wrong_try_again';
+          await this.alertOption(header, message, userAuth, 2);
+        }
       });
 
-    }).catch(async (err) => {
-      console.log(err);
+    }).catch(async (error) => {
+      console.log(error);
 
       // dissmiss loading
       await this.utilService.dismissLoading();
+
+      if (error.status && (error.status === 500 || error.status === 0)) {
+        let header = 'Error';
+        let message = 'Connection_error';
+
+        // alert
+        await this.utilService.alert(header, message);
+
+        await this.observableService.removeStorageUser();
+        await this.observableService.cacheClear();
+        this.user = null;
+
+        // loading dismiss
+        this.utilService.dismissLoading();
+
+        // redirect
+        this.navCtrl.navigateRoot('/login');
+        this.menuCtrl.enable(false);
+
+      } else {
+        let header = 'Error';
+        let message = 'Apparently_something_is_wrong_try_again';
+        await this.alertOption(header, message, userAuth);
+      }
+
+
     });
 
   }
@@ -399,11 +516,132 @@ export class ApiService {
     return await vendorRefDB.remove();
   }
 
+  async addVendorBucle(userAuth) {
+    // add restaurant in database
+    await this.addVendor(userAuth).then(async (result) => {
+      console.log(result._id);
+
+      userAuth['id_firebase'] = result._id;
+
+      // update user localStorage
+      await this.observableService.changeUserStorage(userAuth);
+
+      // dissmiss loading
+      await this.utilService.dismissLoading();
+      // redirect
+      this.navCtrl.navigateRoot('/home');
+
+    }).catch(async (err) => {
+      console.log(err);
+      // dissmiss loading
+      await this.utilService.dismissLoading();
+
+      if (err.status && (err.status === 500 || err.status === 0)) {
+        let header = 'Error';
+        let message = 'Connection_error';
+
+        // alert
+        await this.utilService.alert(header, message);
+
+        await this.observableService.removeStorageUser();
+        await this.observableService.cacheClear();
+        this.user = null;
+
+        // loading dismiss
+        this.utilService.dismissLoading();
+
+        // redirect
+        this.navCtrl.navigateRoot('/login');
+        this.menuCtrl.enable(false);
+
+      } else {
+        let header = 'Error';
+        let message = 'Apparently_something_is_wrong_try_again';
+        await this.alertOption(header, message, userAuth, 2);
+      }
+    });
+  }
+
   // ===================================== Observables =================================
   getOrdersObservable(userId: string) {
 
     return this.firedb.list<any>(`vendors/${userId}/orders`).valueChanges(['child_added']);
 
     // return this.firedb.object<any>(`vendors/${userId}/orders`).valueChanges();
+  }
+
+  // ===================================== Alert =================================
+
+  async alertOption(header, message, user: any, option?: number) {
+    this.utilService.presentLoading(this.translate.instant('Processing'));
+
+    const alert = await this.alertCtrl.create({
+      header: this.translate.instant(header),
+      message: this.translate.instant(message),
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: async (blah) => {
+            console.log('Confirm Cancel: blah');
+
+            // clear data localStorage
+            await this.observableService.removeStorageUser();
+            await this.observableService.cacheClear();
+            this.user = null;
+
+            // loading dismiss
+            this.utilService.dismissLoading();
+
+            // redirect
+            this.navCtrl.navigateRoot('/login');
+            this.menuCtrl.enable(false);
+          }
+        }, {
+          text: this.translate.instant('yes'),
+          handler: async () => {
+
+            if (option) {
+              await this.addVendorBucle(user);
+            } else {
+              await this.verifyUserFirebase(user);
+            }
+
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async alertCloseSe(header, message) {
+    this.utilService.presentLoading(this.translate.instant('Processing'));
+
+    const alert = await this.alertCtrl.create({
+      header: this.translate.instant(header),
+      message: this.translate.instant(message),
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: async (blah) => {
+            console.log('Confirm Cancel: blah');
+            // loading dismiss
+            this.utilService.dismissLoading();
+          }
+        }, {
+          text: this.translate.instant('yes'),
+          handler: async () => {
+
+            await this.SignOut();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

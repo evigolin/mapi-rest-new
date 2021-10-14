@@ -269,5 +269,7 @@
   "close": "Close",
   "Hello_you_have_a_new_order": "Hello, you have a new order!!",
   "Unit": "Unit",
-  "Detail_order": "Detail Order"
+  "Detail_order": "Detail Order",
+  "Apparently_something_is_wrong_try_again": "Something seems to be wrong ... Do you want to try again?",
+  "yes": "Yes"
 }

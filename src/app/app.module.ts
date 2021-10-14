@@ -61,7 +61,7 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     IonicStorageModule.forRoot(
       {
-        name: '__mapi_food_new',
+        name: '__mapi_restaurant',
         driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
       }
     ),
