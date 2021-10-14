@@ -7,6 +7,7 @@ import { HttpClientModule } from "@angular/common/http";
 
 // import plugins
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
+import { LazyLoadImageModule, IntersectionObserverHooks, Attributes, LAZYLOAD_IMAGE_HOOKS } from 'ng-lazyload-image';
 
 // import components
 import { NetworkComponent } from "./network/network.component";
@@ -14,8 +15,7 @@ import { MenuComponent } from "./menu/menu.component";
 import { HeaderLanguageComponent } from "./header-language/header-language.component";
 import { HeaderComponent } from "./header/header.component";
 
-import { LazyLoadImageModule, IntersectionObserverHooks, Attributes, LAZYLOAD_IMAGE_HOOKS } from 'ng-lazyload-image';
-import { PopoverDetailOrderComponent } from "./popover-detail-order/popover-detail-order.component";
+
 
 @Injectable()
 export class LazyLoadImageHooks extends IntersectionObserverHooks {
@@ -33,7 +33,6 @@ export class LazyLoadImageHooks extends IntersectionObserverHooks {
     NetworkComponent,
     HeaderLanguageComponent,
     HeaderComponent,
-    PopoverDetailOrderComponent,
 
   ],
   exports: [
@@ -42,7 +41,6 @@ export class LazyLoadImageHooks extends IntersectionObserverHooks {
     NetworkComponent,
     HeaderLanguageComponent,
     HeaderComponent,
-    PopoverDetailOrderComponent,
 
   ],
   imports: [

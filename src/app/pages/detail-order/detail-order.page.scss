@@ -1,0 +1,232 @@
+ion-content {
+    --background: #0000;
+}
+
+.poster-effect {
+    position: relative;
+    z-index: 99999;
+    margin-left: 33%;
+    width: 35%;
+    margin-top: 20%;
+}
+
+.title-content {
+    position: relative;
+    color: white;
+    z-index: 999;
+    margin: 5%;
+    margin-top: 10%;
+}
+
+.line {
+    border-bottom: 1px white solid;
+    width: 90%;
+    margin: 10px auto;
+    top: 45px;
+    left: 20px;
+}
+
+.content-slaides {
+    padding-top: 15px;
+    background: #212121;
+    position: relative;
+}
+
+.price {
+    color: white;
+    position: relative;
+    right: 23%;
+    top: -4.5rem;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.agregar {
+    --background: rgb(221, 158, 0);
+    --border-radius: 8px;
+    width: 100px;
+}
+
+.ion_div_detail {
+    border-bottom: 1px solid white;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    outline-color: transparent;
+}
+
+.ion_img_detail {
+    border-radius: 0.5rem;
+    border: 1px solid white;
+}
+
+.title-content2 {
+    color: white;
+    position: relative;
+    z-index: 9999;
+    left: 25%;
+    top: -25px;
+    font-weight: bold;
+}
+
+.slides-img {
+    width: 90%;
+    margin: auto;
+    border-radius: 1rem;
+    margin-bottom: 35px;
+}
+
+.title-slide {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    position: relative;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.secon {
+    position: relative;
+    width: 90% !important;
+}
+
+.bg-cart2 {
+    position: absolute;
+    margin-top: 50%;
+}
+
+.bg-cart1 {
+    position: relative;
+    width: 100%;
+}
+
+.ion_thumbart {
+    width: 30%;
+    height: 70%;
+}
+
+.ion_item {
+    background: transparent;
+    --background: transparent;
+    color: white;
+    font-size: 1.2em;
+    --min-height: 26px;
+    font-weight: bold;
+}
+
+.ion_descText {
+    color: white;
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+
+.products {
+    background: transparent;
+    margin-left: 1.2rem;
+    margin-right: 1.2rem;
+    margin-bottom: 2rem;
+
+    .card {
+        color: white;
+        margin-right: -3%;
+        border-radius: 2rem;
+        padding: 0.5rem;
+        height: 140px;
+
+        .card-item {
+            top: 45px;
+            position: absolute;
+            margin-left: 70%;
+            margin-top: -10%;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+    }
+
+    ion-item {
+        --background: transparent;
+        width: 100%;
+    }
+}
+
+.ion_item_img {
+    padding-inline-end: 0em;
+    --inner-padding-end: 0em;
+}
+
+.img-menu {
+    width: 40%;
+}
+
+.card-content {
+    display: -webkit-box;
+    height: 170px;
+}
+
+.item-categori {
+    --background: transparent;
+    color: white;
+}
+
+h2.title-general {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 0rem;
+    margin-bottom: 5px;
+}
+
+h3.title-general {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 0rem;
+    margin-bottom: 5px;
+}
+
+.description {
+    color: darkgrey;
+    width: 78%;
+    font-size: 15px;
+}
+
+.title-cat {
+    --background: rgb(63, 63, 63);
+    background: rgb(63, 63, 63);
+    height: 40px;
+    padding: 10px;
+    border-radius: 1rem;
+    color: white;
+    margin-bottom: 20px;
+    flex-direction: inherit;
+    align-items: center;
+    align-self: center;
+    min-height: inherit;
+}
+
+.left {
+    margin-left: 80%;
+}
+
+.title_card_item {
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 0em;
+}
+
+.ion_label_home {
+    color: white;
+}
+
+.ion_spinner {
+    color: white;
+    margin-top: 2rem;
+}
+
+.ion_spinner_promos {
+    color: white;
+}
+
+.ion_col_spinner {
+    margin-top: 1rem;
+    margin-bottom: 4.5rem;
+}

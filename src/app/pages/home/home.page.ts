@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { NavController, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { PopoverDetailOrderComponent } from 'src/app/components/popover-detail-order/popover-detail-order.component';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ObservableService } from 'src/app/services/observable/observable.service';
 import { UtilsService } from 'src/app/services/utils/utils.service';
@@ -43,6 +42,7 @@ export class HomePage implements OnInit, OnDestroy {
     private utilService: UtilsService,
     public popoverController: PopoverController,
     private translate: TranslateService,
+    private navCtrl: NavController,
 
   ) {
 
@@ -99,19 +99,9 @@ export class HomePage implements OnInit, OnDestroy {
       this.flag = false;
     }
   }
-  async presentPopover(order) {
-    const popover = await this.popoverController.create({
-      component: PopoverDetailOrderComponent,
-      cssClass: 'my-custom-class-orders',
-      translucent: true,
-      componentProps: {
-        order: order
-      }
-    });
 
-    popover.onDidDismiss();
-
-    await popover.present();
-
+  async getDetailProduct(order: any) {
+    await this.observableService.changeProduct(order);
+    this.navCtrl.navigateForward('/detail-order');
   }
 }

@@ -28,6 +28,12 @@ export class ObservableService {
   // initialize schedule
   private _schedule = new BehaviorSubject<any[] | null>([]);
 
+  // initialize details
+  private _details = new BehaviorSubject<any[] | null>([]);
+
+  //observable authUser
+  readonly _detailSelelected = this._details.asObservable();
+
   constructor(
     private storage: Storage,
   ) { }
@@ -72,6 +78,20 @@ export class ObservableService {
 
   async removeControlCategories() {
     this._controlCategories.next(false);
+  }
+
+  // <<<<<<<<<<<<<<<<<<<<<<<<< product >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+  async changeProduct(_details: any) {
+    this._details.next(_details);
+  }
+
+  async getproduct() {
+    return this._details.getValue();
+  }
+
+  async removeProduct() {
+    this._details.next(null);
   }
 
   // <<<<<<<<<<<<<<<<<<<<<<<<< categories restaurant >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

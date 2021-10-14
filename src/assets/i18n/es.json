@@ -237,5 +237,7 @@
   "hour": "Hora",
   "Closing_session": "Cerrando sesión",
   "close": "Cerrar",
-  "Hello_you_have_a_new_order": "Hola, tienes un pedido nuevo!!"
+  "Hello_you_have_a_new_order": "Hola, tiene un nuevo pedido!!",
+  "Unit": "Unidad",
+  "Detail_order": "Detalle del Pedido"
 }
