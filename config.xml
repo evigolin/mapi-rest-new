@@ -55,7 +55,7 @@
         <resource-file src="resources/android/notification/drawable-xxhdpi/ic_stat_onesignal_default.png" target="app/src/main/res/drawable-xxhdpi/ic_stat_onesignal_default.png" />
         <resource-file src="resources/android/notification/drawable-xxxhdpi/ic_stat_onesignal_default.png" target="app/src/main/res/drawable-xxxhdpi/ic_stat_onesignal_default.png" />
         <resource-file src="resources/android/notification/drawable-xxxhdpi/ic_stat_onesignal_default.png" target="app/src/main/res/drawable-xxxhdpi/ic_onesignal_large_icon_default.png" />
-        <config-file parent="/*" target="AndroidManifest.xml">
+        <config-file parent="/manifest/application/" target="AndroidManifest.xml">
             <meta-data android:name="com.onesignal.NotificationAccentColor.DEFAULT" android:value="FFEC1C24" />
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml">
