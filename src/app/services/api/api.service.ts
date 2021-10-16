@@ -147,6 +147,7 @@ export class ApiService {
 
         let vendor = Object.values(resp.val())[0];
         userAuth['id_firebase'] = vendor['_id'];
+        console.log(vendor['_id']);
 
         ////////////////////////////////// set id onesignal in firebase ///////////////
         await this.setIdOnesignal(userAuth['id_firebase']).then(async (result) => {
@@ -161,6 +162,11 @@ export class ApiService {
 
         }).catch(async (errs) => {
           console.log(errs);
+          const errorCode = errs.code;
+          console.log(errorCode);
+
+          // dissmiss loading
+          await this.utilService.dismissLoading();
 
           if (errs.status && (errs.status === 500 || errs.status === 0)) {
             let header = 'Error';
@@ -179,6 +185,11 @@ export class ApiService {
             // redirect
             this.navCtrl.navigateRoot('/login');
             this.menuCtrl.enable(false);
+
+          } else {
+            let header = 'Error';
+            let message = 'Apparently_something_is_wrong_try_again';
+            await this.alertContinueSetIdOnesignal(header, message, userAuth);;
           }
         });
 
@@ -186,6 +197,12 @@ export class ApiService {
 
       }).catch(async (err) => {
         console.log(err);
+
+        const errorCode = err.code;
+        console.log(errorCode);
+
+        // dissmiss loading
+        await this.utilService.dismissLoading();
 
         if (err.status && (err.status === 500 || err.status === 0)) {
           let header = 'Error';
@@ -216,8 +233,11 @@ export class ApiService {
 
     }, async (error) => {
       console.log(error);
+      // dissmiss loading
+      await this.utilService.dismissLoading();
 
       const errorCode = error.code;
+      console.log(errorCode);
 
       // Unregistered user
       if (errorCode === 'auth/user-not-found') {
@@ -233,6 +253,11 @@ export class ApiService {
           await this.getRestaurant(userAuth, password);
 
         }).catch(async (error) => {
+          console.log(error);
+
+          const errorCode = error.code;
+          console.log(errorCode);
+
           // dissmiss loading
           await this.utilService.dismissLoading();
 
@@ -313,8 +338,10 @@ export class ApiService {
     return this.ngFireAuth.sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
         window.alert('Password reset email has been sent, please check your inbox.');
-      }).catch((error) => {
-        window.alert(error)
+      }).catch(async (error) => {
+        window.alert(error);
+        // dissmiss loading
+        await this.utilService.dismissLoading();
       })
   }
 
@@ -366,16 +393,112 @@ export class ApiService {
   // Sign-out 
   async SignOut() {
 
-    return await this.removeIdOnesignal().then(async () => {
+    let userAuth = await this.observableService.getUserStorage();
 
-      return await this.ngFireAuth.signOut().then(async () => {
-        // localStorage.removeItem('user-vendor');
-        // this.router.navigate(['login']);
-        // loading dismiss
-        this.utilService.dismissLoading();
+    ////////////////// Obtaining information from the database ////////////////////
+    await this.getUserRestaurantEmail(userAuth.email).then(async (resp) => {
+      console.log(resp.val());
 
-      }).catch(async (errs) => {
-        console.log(errs);
+      let vendor = Object.values(resp.val())[0];
+      let id_onesignal = this.oneSignalService.getIdOnesignal();
+      console.log(vendor['_id_onesignal']);
+      console.log(id_onesignal);
+
+      if (id_onesignal !== '' && id_onesignal === vendor['_id_onesignal']) {
+
+        return await this.removeIdOnesignal().then(async () => {
+
+          return await this.ngFireAuth.signOut().then(async () => {
+            // localStorage.removeItem('user-vendor');
+            // this.router.navigate(['login']);
+            // loading dismiss
+            this.utilService.dismissLoading();
+
+          }).catch(async (errs) => {
+            console.log(errs);
+
+            const errorCode = errs.code;
+            console.log(errorCode);
+            await this.observableService.removeStorageUser();
+            await this.observableService.cacheClear();
+            this.user = null;
+
+            // loading dismiss
+            this.utilService.dismissLoading();
+
+            // redirect
+            this.navCtrl.navigateRoot('/login');
+            this.menuCtrl.enable(false);
+
+          });
+
+        }).catch(async (error) => {
+          console.log(error);
+
+          const errorCode = error.code;
+          console.log(errorCode);
+
+          // loading dismiss
+          this.utilService.dismissLoading();
+
+          if (error.status && (error.status === 500 || error.status === 0)) {
+            let header = 'Error';
+            let message = 'Connection_error';
+
+            // alert
+            await this.utilService.alert(header, message);
+
+          } else {
+
+            let header = 'Error';
+            let message = 'Apparently_something_is_wrong_try_again';
+            await this.alertCloseSe(header, message);
+          }
+        });
+
+      } else {
+
+        return await this.ngFireAuth.signOut().then(async () => {
+          // localStorage.removeItem('user-vendor');
+          // this.router.navigate(['login']);
+          // loading dismiss
+          this.utilService.dismissLoading();
+
+        }).catch(async (errs) => {
+          console.log(errs);
+
+          const errorCode = errs.code;
+          console.log(errorCode);
+
+          await this.observableService.removeStorageUser();
+          await this.observableService.cacheClear();
+          this.user = null;
+
+          // loading dismiss
+          this.utilService.dismissLoading();
+
+          // redirect
+          this.navCtrl.navigateRoot('/login');
+          this.menuCtrl.enable(false);
+
+        });
+      }
+
+    }).catch(async (err) => {
+      console.log(err);
+
+      const errorCode = err.code;
+      console.log(errorCode);
+
+      // dissmiss loading
+      await this.utilService.dismissLoading();
+
+      if (err.status && (err.status === 500 || err.status === 0)) {
+        let header = 'Error';
+        let message = 'Connection_error';
+
+        // alert
+        await this.utilService.alert(header, message);
 
         await this.observableService.removeStorageUser();
         await this.observableService.cacheClear();
@@ -388,30 +511,14 @@ export class ApiService {
         this.navCtrl.navigateRoot('/login');
         this.menuCtrl.enable(false);
 
-      });
-
-    }).catch(async (error) => {
-      console.log(error);
-      // loading dismiss
-      this.utilService.dismissLoading();
-
-      if (error.status && (error.status === 500 || error.status === 0)) {
-        let header = 'Error';
-        let message = 'Connection_error';
-
-        // alert
-        await this.utilService.alert(header, message);
-
       } else {
-
         let header = 'Error';
         let message = 'Apparently_something_is_wrong_try_again';
-        await this.alertCloseSe(header, message);
+        await this.alertCloseSession(header, message);
       }
     });
+
   }
-
-
 
   async getRestaurant(userAuth, password) {
 
@@ -434,6 +541,10 @@ export class ApiService {
 
       }).catch(async (err) => {
         console.log(err);
+
+        const errorCode = err.code;
+        console.log(errorCode);
+
         // dissmiss loading
         await this.utilService.dismissLoading();
 
@@ -465,6 +576,9 @@ export class ApiService {
     }).catch(async (error) => {
       console.log(error);
 
+      const errorCode = error.code;
+      console.log(errorCode);
+
       // dissmiss loading
       await this.utilService.dismissLoading();
 
@@ -492,7 +606,6 @@ export class ApiService {
         await this.alertOption(header, message, userAuth);
       }
 
-
     });
 
   }
@@ -501,7 +614,7 @@ export class ApiService {
     let user = await this.observableService.getUserStorage();
     const vendorRefDB = this.firedb.list<any>(`vendors/${id_firebase}`);
     let _id_onesignal = this.oneSignalService.getIdOnesignal();
-
+    console.log(_id_onesignal);
     return vendorRefDB.set('_id_onesignal', _id_onesignal).then(async (result) => {
       user['_id_onesignal'] = _id_onesignal;
       await this.observableService.changeUserStorage(user);
@@ -533,6 +646,10 @@ export class ApiService {
 
     }).catch(async (err) => {
       console.log(err);
+
+      const errorCode = err.code;
+      console.log(errorCode);
+
       // dissmiss loading
       await this.utilService.dismissLoading();
 
@@ -562,6 +679,52 @@ export class ApiService {
     });
   }
 
+  async continueSetIdOnesignal(userAuth) {
+    ////////////////////////////////// set id onesignal in firebase ///////////////
+    await this.setIdOnesignal(userAuth['id_firebase']).then(async (result) => {
+
+      // update user localStorage
+      await this.observableService.changeUserStorage(userAuth);
+
+      // dissmiss loading
+      await this.utilService.dismissLoading();
+      // redirect
+      this.navCtrl.navigateRoot('/home');
+
+    }).catch(async (errs) => {
+      console.log(errs);
+      const errorCode = errs.code;
+      console.log(errorCode);
+
+      // dissmiss loading
+      await this.utilService.dismissLoading();
+
+      if (errs.status && (errs.status === 500 || errs.status === 0)) {
+        let header = 'Error';
+        let message = 'Connection_error';
+
+        // alert
+        await this.utilService.alert(header, message);
+
+        await this.observableService.removeStorageUser();
+        await this.observableService.cacheClear();
+        this.user = null;
+
+        // loading dismiss
+        this.utilService.dismissLoading();
+
+        // redirect
+        this.navCtrl.navigateRoot('/login');
+        this.menuCtrl.enable(false);
+
+      } else {
+        let header = 'Error';
+        let message = 'Apparently_something_is_wrong_try_again';
+        await this.alertContinueSetIdOnesignal(header, message, userAuth);
+      }
+    });
+  }
+
   // ===================================== Observables =================================
   getOrdersObservable(userId: string) {
 
@@ -573,7 +736,6 @@ export class ApiService {
   // ===================================== Alert =================================
 
   async alertOption(header, message, user: any, option?: number) {
-    this.utilService.presentLoading(this.translate.instant('Processing'));
 
     const alert = await this.alertCtrl.create({
       header: this.translate.instant(header),
@@ -601,7 +763,7 @@ export class ApiService {
         }, {
           text: this.translate.instant('yes'),
           handler: async () => {
-
+            this.utilService.presentLoading(this.translate.instant('Processing'));
             if (option) {
               await this.addVendorBucle(user);
             } else {
@@ -617,7 +779,6 @@ export class ApiService {
   }
 
   async alertCloseSe(header, message) {
-    this.utilService.presentLoading(this.translate.instant('Processing'));
 
     const alert = await this.alertCtrl.create({
       header: this.translate.instant(header),
@@ -635,7 +796,7 @@ export class ApiService {
         }, {
           text: this.translate.instant('yes'),
           handler: async () => {
-
+            this.utilService.presentLoading(this.translate.instant('Processing'));
             await this.SignOut();
           }
         }
@@ -644,4 +805,72 @@ export class ApiService {
 
     await alert.present();
   }
+
+  async alertCloseSession(header, message) {
+
+    const alert = await this.alertCtrl.create({
+      header: this.translate.instant(header),
+      message: this.translate.instant(message),
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: async (blah) => {
+            console.log('Confirm Cancel: blah');
+            // loading dismiss
+            this.utilService.dismissLoading();
+          }
+        }, {
+          text: this.translate.instant('yes'),
+          handler: async () => {
+            this.utilService.presentLoading(this.translate.instant('Processing'));
+            await this.SignOut();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async alertContinueSetIdOnesignal(header, message, userAuth) {
+    // dissmiss loading
+    await this.utilService.dismissLoading();
+
+    const alert = await this.alertCtrl.create({
+      header: this.translate.instant(header),
+      message: this.translate.instant(message),
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: async (blah) => {
+            console.log('Confirm Cancel: blah');
+
+            // clean information localStorage
+            await this.observableService.cacheClear();
+
+            // message confirmation
+            let header = 'Information';
+            let message = 'It_is_possible_that_you_will_not_receive_notifications_because_the_complete_flow_was_not_done';
+            await this.utilService.getAlertConfirm(header, message);
+          }
+        }, {
+          text: this.translate.instant('yes'),
+          handler: async () => {
+            console.log('=============== alert Continue Set Id Onesignal ================');
+
+            this.utilService.presentLoading(this.translate.instant('Processing'));
+            await this.continueSetIdOnesignal(userAuth);
+
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
 }

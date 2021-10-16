@@ -69,13 +69,13 @@
               <ion-label style="margin-bottom: .5rem;">
                 <ion-text class="ion_descText_sub ion-no-margin ion-no-padding">{{ 'Description' | translate}}:
                 </ion-text>
-                <div class="ion_descText ion-no-margin ion-no-padding" [innerHtml]="cats.description"></div>
+                <div style="white-space: normal;" class="ion_descText ion-no-margin ion-no-padding" [innerHtml]="cats.description"></div>
               </ion-label>
 
               <p style="margin-bottom: .5rem;" class="ion_descText ion-no-margin ion-no-padding" *ngIf="cats.categories.length > 0">
                 <ion-text class="ion_descText_sub ion-no-margin ion-no-padding"> {{'Categories' | translate}}:
                 </ion-text>
-                <ion-label class="ion_descText" *ngFor="let category of cats.categories">
+                <ion-label style="white-space: normal;" class="ion_descText" *ngFor="let category of cats.categories">
                   - {{category.name}} <br>
                 </ion-label>
               </p>

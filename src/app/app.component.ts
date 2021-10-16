@@ -18,6 +18,7 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -114,10 +115,11 @@ export class AppComponent implements OnInit {
   }
 
   setupPush() {
-
+    console.log(environment.app_id_restaurant);
+    
     this.oneSignal.startInit(
-      'c4f73897-aabd-4867-bc56-9673d99496d2',
-      '742495413692'
+      '9b4e03db-8a8e-4e46-96fe-d516bad96dc0',
+      '654129290571'
     );
 
     // TOKEN ONESIGNAL
@@ -132,18 +134,15 @@ export class AppComponent implements OnInit {
 
     this.oneSignal.handleNotificationReceived().subscribe(async (data) => {
       console.log(data);
-      let user = await this.observableService.getUserStorage();
 
-      if (user) {
         let msg = data.payload.body;
         let title = data.payload.title;
         let additionalData = data.payload.additionalData;
         this.utilService.getAlertNotification(
-          title,
+          // title,
           msg,
           // additionalData.task = ''
         );
-      }
 
     });
 
@@ -151,15 +150,11 @@ export class AppComponent implements OnInit {
       console.log(data);
       let additionalData = data.notification.payload.additionalData;
 
-      let user = await this.observableService.getUserStorage();
-
-      if (user) {
-        this.utilService.getAlertNotification(
-          'Notification opened',
-          'You already read this before',
-          // additionalData.task
-        );
-      }
+        // this.utilService.getAlertNotification(
+        //   // 'Notification opened',
+        //   'You already read this before',
+        //   // additionalData.task
+        // );
     });
 
     this.oneSignal.endInit();

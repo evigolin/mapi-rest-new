@@ -241,5 +241,7 @@
   "Unit": "Unidad",
   "Detail_order": "Detalle del Pedido",
   "Apparently_something_is_wrong_try_again": "Al parecer algo no anda bien... ¿Desea intentarlo de nuevo?",
-  "yes": "Si"
+  "yes": "Si",
+  "Notification": "Notificación",
+  "It_is_possible_that_you_will_not_receive_notifications_because_the_complete_flow_was_not_done": "Es posible que no reciba notificaciones debido a que no se realizo el flujo completo!!"
 }

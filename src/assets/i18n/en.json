@@ -271,5 +271,7 @@
   "Unit": "Unit",
   "Detail_order": "Detail Order",
   "Apparently_something_is_wrong_try_again": "Something seems to be wrong ... Do you want to try again?",
-  "yes": "Yes"
+  "yes": "Yes",
+  "Notification": "Notification",
+  "It_is_possible_that_you_will_not_receive_notifications_because_the_complete_flow_was_not_done": "It is possible that you will not receive notifications because the complete flow was not done!!"
 }

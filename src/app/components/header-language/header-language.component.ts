@@ -33,7 +33,7 @@ export class HeaderLanguageComponent implements OnInit {
 
     setTimeout(() => {
       this.selected = this.utilService.selected;
-    }, 900);
+    }, 500);
 
     this.ngZone.run(_ => {
       this.cdr.detectChanges();

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 import { UtilsService } from '../utils/utils.service';
 
 @Injectable({
@@ -29,10 +30,10 @@ export class OneSignalNotificationService {
     };
   }
 
-  async sendNotification() {
+  async sendNotification(id) {
     let data = {
-      app_id: 'c4f73897-aabd-4867-bc56-9673d99496d2',
-      include_player_ids: ['4bdc815f-6d10-480e-a61f-344d4f50f9d3'],
+      app_id: '90e9a99d-b286-4988-816f-9ee368ea0d5d',
+      include_player_ids: [id],
       heading: { en: 'My notification title' },
       contents: { en: 'So much content' },
       data: { task: 'Send' }
@@ -58,6 +59,8 @@ export class OneSignalNotificationService {
   }
 
   setIdOnesignal(id: string) {
+    console.log(id);
+    
     this.onesignal = id;
   }
 

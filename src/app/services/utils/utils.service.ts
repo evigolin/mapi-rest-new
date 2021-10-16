@@ -106,10 +106,10 @@ export class UtilsService {
     await alert.present();
   }
 
-  async getAlertNotification(title, msg) {
+  async getAlertNotification(msg) {
     const alert = await this.alertCtrl.create({
-      header: this.translate.instant(title),
-      message: this.translate.instant(msg),
+      header: this.translate.instant('Notification'),
+      message: msg,
       buttons: [
         {
           text: `Ok`,
