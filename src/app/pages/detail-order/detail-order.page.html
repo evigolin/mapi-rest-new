@@ -25,7 +25,7 @@
     <h3 class="title-general">{{ 'Phone' | translate }}: {{order?.phone}}</h3>
     <h3 class="title-general">{{ 'Email' | translate }}: {{order?.email}}</h3>
     <h3 class="title-general">{{'Shipping_Address' | translate}}: {{order?.address_orders?.address_shipping?.address }}, {{order?.address_orders?.address_shipping?.city }} {{order?.address_orders?.address_shipping?.state }}</h3>
-    <h3 class="title-general">{{'Order_time' | translate}}: {{order?.createdAt | date: "shortTime"}}</h3>
+    <h3 class="title-general">{{'Order_time' | translate}}: {{order?.createdAt | date: "medium"}}</h3>
     <h3 class="title-general">{{'Total' | translate}}: {{order?.total}}</h3>
     <h3 class="title-general">{{'payment_method' | translate}}: {{order?.payment_metod }}</h3>
   </div>

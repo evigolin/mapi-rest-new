@@ -150,6 +150,12 @@ ion-content {
     }
 }
 
+ion-item {
+    --background: transparent;
+    width: 100%;
+    letter-spacing: 1px;
+}
+
 .ion_item_img {
     padding-inline-end: 0em;
     --inner-padding-end: 0em;

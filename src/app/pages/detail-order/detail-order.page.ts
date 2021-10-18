@@ -26,7 +26,7 @@ export class DetailOrderPage implements OnInit {
 
     this.detailSuscription = this.observableService._detailSelelected.subscribe(order => {
 
-      if (order) {
+      if (order && order.length !== 0) {
         this.order = order;
       }
 

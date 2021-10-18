@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavController, PopoverController } from '@ionic/angular';
+import { AlertController, NavController, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -43,6 +43,7 @@ export class HomePage implements OnInit, OnDestroy {
     public popoverController: PopoverController,
     private translate: TranslateService,
     private navCtrl: NavController,
+    private alertCtrl: AlertController,
 
   ) {
 
@@ -72,7 +73,7 @@ export class HomePage implements OnInit, OnDestroy {
         console.log(orders);
 
         if (orders) {
-          this.orders = orders;
+          this.orders = orders.reverse();
         }
         this.flag = false;
       });
@@ -101,7 +102,74 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   async getDetailProduct(order: any) {
-    await this.observableService.changeProduct(order);
-    this.navCtrl.navigateForward('/detail-order');
+
+    if (!order.read) {
+
+      this.utilService.presentLoading(this.translate.instant('Processing'));
+      await this.apiService.setReadTrue(order).then(async (result) => {
+        console.log(result);
+
+        // loading dismiss
+        this.utilService.dismissLoading();
+        await this.observableService.changeProduct(order);
+        this.navCtrl.navigateForward('/detail-order');
+
+      }).catch(async (err) => {
+        console.log(err);
+
+        const errorCode = err.code;
+        console.log(errorCode);
+
+        // dissmiss loading
+        await this.utilService.dismissLoading();
+
+        if (err.status && (err.status === 500 || err.status === 0)) {
+          let header = 'Error';
+          let message = 'Connection_error';
+
+          // alert
+          await this.utilService.alert(header, message);
+
+        } else {
+          let header = 'Error';
+          let message = 'Apparently_something_is_wrong_try_again';
+          await this.alertErrorGetInformationOrder(header, message, order);
+        }
+      });
+
+    } else {
+      await this.observableService.changeProduct(order);
+      this.navCtrl.navigateForward('/detail-order');
+    }
+
+  }
+
+  async alertErrorGetInformationOrder(header, message, order) {
+
+    const alert = await this.alertCtrl.create({
+      header: this.translate.instant(header),
+      message: this.translate.instant(message),
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: async (blah) => {
+            console.log('Confirm Cancel: blah');
+            // loading dismiss
+            this.utilService.dismissLoading();
+          }
+        }, {
+          text: this.translate.instant('yes'),
+          handler: async () => {
+            console.log('=============== alert Error get information order ================');
+            this.utilService.presentLoading(this.translate.instant('Processing'));
+            await this.getDetailProduct(order);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

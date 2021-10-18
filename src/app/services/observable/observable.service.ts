@@ -29,7 +29,7 @@ export class ObservableService {
   private _schedule = new BehaviorSubject<any[] | null>([]);
 
   // initialize details
-  private _details = new BehaviorSubject<any[] | null>([]);
+  private _details = new BehaviorSubject<any | null>([]);
 
   //observable authUser
   readonly _detailSelelected = this._details.asObservable();

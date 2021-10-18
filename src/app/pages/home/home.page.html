@@ -51,19 +51,36 @@
       <ng-container *ngIf="!flag && orders && orders.length !== 0">
         <ion-grid class="products">
           <ion-row *ngFor="let order of orders" class="ion_item_img ion-no-margin ion-no-padding">
-            <ion-col size="12" (click)="getDetailProduct(order)">
+            <ion-col size="12" (click)="getDetailProduct(order)" *ngIf="!order.read">
+              <p style="color: rgb(221, 158, 0);" class="ion_descText ion-no-margin ion-no-padding">{{'Hello_you_have_a_new_order' | translate}}
+                #{{order.number}}</p>
+              <p style="color: rgb(221, 158, 0);" class="ion_descText ion-no-margin ion-no-padding">{{'Buyer' | translate}}:
+                {{order.user_name}}
+              </p>
+              <p style="color: rgb(221, 158, 0);" class="ion_descText ion-no-margin ion-no-padding">{{'Order_time' | translate}}: {{order?.createdAt | date: "medium"}}</p>
+              <p style="margin-bottom: 1rem;color: rgb(221, 158, 0);" class="ion_descText ion-no-margin ion-no-padding">{{'Shipping_Address' |
+                translate}}:
+                {{order.address_orders.address_shipping.address}}, {{order.address_orders.address_shipping.state}},
+                {{order.address_orders.address_shipping.city}}
+              </p>
+            </ion-col>
+            <div class="line" *ngIf="!order.read"></div>
+          </ion-row>
+          <ion-row *ngFor="let order of orders" class="ion_item_img ion-no-margin ion-no-padding">
+            <ion-col size="12" (click)="getDetailProduct(order)" *ngIf="order.read">
               <p class="ion_descText ion-no-margin ion-no-padding">{{'Hello_you_have_a_new_order' | translate}}
                 #{{order.number}}</p>
               <p class="ion_descText ion-no-margin ion-no-padding">{{'Buyer' | translate}}:
                 {{order.user_name}}
               </p>
+              <p class="ion_descText ion-no-margin ion-no-padding">{{'Order_time' | translate}}: {{order?.createdAt | date: "medium"}}</p>
               <p style="margin-bottom: 1rem;" class="ion_descText ion-no-margin ion-no-padding">{{'Shipping_Address' |
                 translate}}:
                 {{order.address_orders.address_shipping.address}}, {{order.address_orders.address_shipping.state}},
                 {{order.address_orders.address_shipping.city}}
               </p>
-              <div class="line"></div>
             </ion-col>
+            <div class="line" *ngIf="order.read"></div>
           </ion-row>
         </ion-grid>
       </ng-container>
