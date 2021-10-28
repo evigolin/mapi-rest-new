@@ -84,7 +84,7 @@ export class MenuComponent implements OnInit {
   }
 
   async logout() {
-    this.utilService.presentLoading(this.translate.instant('Closing_session'));
+    // this.utilService.presentLoading(this.translate.instant('Closing_session'));
     
     this.apiService.SignOut().then(async (result) => {
       console.log(result);

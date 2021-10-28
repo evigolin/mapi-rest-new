@@ -68,8 +68,8 @@ export class ApiService {
     // configuration
     this.user = 'Admint';
     this.pass = 'Colombia2020!';
-    // this.url = "https://mimapi.club";
-    this.url = 'https://test.mimapi.club';
+    this.url = "https://mimapi.club";
+    // this.url = 'https://test.mimapi.club';
 
     this.httpOption = {
       headers: new HttpHeaders({
@@ -152,53 +152,53 @@ export class ApiService {
         console.log(vendor['_id']);
 
         // if (this.oneSignalService.getIdOnesignal() !== '') {
-          console.log('=============== set Id Onesignal ================');
+        console.log('=============== set Id Onesignal ================');
 
-          ////////////////////////////////// set id onesignal in firebase ///////////////
-          await this.setIdOnesignal(userAuth['id_firebase']).then(async (result) => {
-            // update user localStorage
-            await this.observableService.changeUserStorage(userAuth);
+        ////////////////////////////////// set id onesignal in firebase ///////////////
+        await this.setIdOnesignal(userAuth['id_firebase']).then(async (result) => {
+          // update user localStorage
+          await this.observableService.changeUserStorage(userAuth);
 
-            // dissmiss loading
-            await this.utilService.dismissLoading();
-            console.log('=============== redirect home ================');
+          // dissmiss loading
+          await this.utilService.dismissLoading();
+          console.log('=============== redirect home ================');
+          // redirect
+          this.navCtrl.navigateRoot('/home');
+
+        }).catch(async (errs) => {
+          console.log(errs);
+          const errorCode = errs.code;
+          console.log(errorCode);
+
+          // dissmiss loading
+          await this.utilService.dismissLoading();
+
+          if (errs.status && (errs.status === 500 || errs.status === 0)) {
+            let header = 'Error';
+            let message = 'Connection_error';
+
+            // alert
+            await this.utilService.alert(header, message);
+
+            await this.observableService.removeStorageUser();
+            await this.observableService.cacheClear();
+            this.user = null;
+
+            // loading dismiss
+            this.utilService.dismissLoading();
+
             // redirect
-            this.navCtrl.navigateRoot('/home');
+            this.navCtrl.navigateRoot('/login');
+            this.menuCtrl.enable(false);
 
-          }).catch(async (errs) => {
-            console.log(errs);
-            const errorCode = errs.code;
-            console.log(errorCode);
+          } else {
+            let header = 'Error';
+            let message = 'Apparently_something_is_wrong_try_again';
+            await this.alertContinueSetIdOnesignal(header, message, userAuth);
+          }
+        });
 
-            // dissmiss loading
-            await this.utilService.dismissLoading();
-
-            if (errs.status && (errs.status === 500 || errs.status === 0)) {
-              let header = 'Error';
-              let message = 'Connection_error';
-
-              // alert
-              await this.utilService.alert(header, message);
-
-              await this.observableService.removeStorageUser();
-              await this.observableService.cacheClear();
-              this.user = null;
-
-              // loading dismiss
-              this.utilService.dismissLoading();
-
-              // redirect
-              this.navCtrl.navigateRoot('/login');
-              this.menuCtrl.enable(false);
-
-            } else {
-              let header = 'Error';
-              let message = 'Apparently_something_is_wrong_try_again';
-              await this.alertContinueSetIdOnesignal(header, message, userAuth);
-            }
-          });
-
-          /////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////
         // }
 
 
@@ -400,7 +400,7 @@ export class ApiService {
 
   // Sign-out 
   async SignOut() {
-
+    this.utilService.presentLoading(this.translate.instant('Closing_session'));
     let userAuth = await this.observableService.getUserStorage();
 
     ////////////////// Obtaining information from the database ////////////////////
@@ -411,6 +411,9 @@ export class ApiService {
       let id_onesignal = this.oneSignalService.getIdOnesignal();
       console.log(vendor['_id_onesignal']);
       console.log(id_onesignal);
+
+      // loading dismiss
+      this.utilService.dismissLoading();
 
       if (id_onesignal !== '' && id_onesignal === vendor['_id_onesignal']) {
 
@@ -625,7 +628,7 @@ export class ApiService {
     console.log(order);
     console.log(user.id_firebase);
     console.log(order._id);
-    
+
     const vendorRefDB = this.firedb.list<any>(`vendors/${user.id_firebase}/orders/${order._id}`);
     let _id_onesignal = this.oneSignalService.getIdOnesignal();
     console.log(_id_onesignal);
@@ -707,50 +710,50 @@ export class ApiService {
   async continueSetIdOnesignal(userAuth) {
 
     // if (this.oneSignalService.getIdOnesignal() !== '') {
-      ////////////////////////////////// set id onesignal in firebase ///////////////
-      console.log('=============== set Id Onesignal ================');
-      await this.setIdOnesignal(userAuth['id_firebase']).then(async (result) => {
+    ////////////////////////////////// set id onesignal in firebase ///////////////
+    console.log('=============== set Id Onesignal ================');
+    await this.setIdOnesignal(userAuth['id_firebase']).then(async (result) => {
 
-        // update user localStorage
-        await this.observableService.changeUserStorage(userAuth);
+      // update user localStorage
+      await this.observableService.changeUserStorage(userAuth);
 
-        // dissmiss loading
-        await this.utilService.dismissLoading();
+      // dissmiss loading
+      await this.utilService.dismissLoading();
+      // redirect
+      this.navCtrl.navigateRoot('/home');
+
+    }).catch(async (errs) => {
+      console.log(errs);
+      const errorCode = errs.code;
+      console.log(errorCode);
+
+      // dissmiss loading
+      await this.utilService.dismissLoading();
+
+      if (errs.status && (errs.status === 500 || errs.status === 0)) {
+        let header = 'Error';
+        let message = 'Connection_error';
+
+        // alert
+        await this.utilService.alert(header, message);
+
+        await this.observableService.removeStorageUser();
+        await this.observableService.cacheClear();
+        this.user = null;
+
+        // loading dismiss
+        this.utilService.dismissLoading();
+
         // redirect
-        this.navCtrl.navigateRoot('/home');
+        this.navCtrl.navigateRoot('/login');
+        this.menuCtrl.enable(false);
 
-      }).catch(async (errs) => {
-        console.log(errs);
-        const errorCode = errs.code;
-        console.log(errorCode);
-
-        // dissmiss loading
-        await this.utilService.dismissLoading();
-
-        if (errs.status && (errs.status === 500 || errs.status === 0)) {
-          let header = 'Error';
-          let message = 'Connection_error';
-
-          // alert
-          await this.utilService.alert(header, message);
-
-          await this.observableService.removeStorageUser();
-          await this.observableService.cacheClear();
-          this.user = null;
-
-          // loading dismiss
-          this.utilService.dismissLoading();
-
-          // redirect
-          this.navCtrl.navigateRoot('/login');
-          this.menuCtrl.enable(false);
-
-        } else {
-          let header = 'Error';
-          let message = 'Apparently_something_is_wrong_try_again';
-          await this.alertContinueSetIdOnesignal(header, message, userAuth);
-        }
-      });
+      } else {
+        let header = 'Error';
+        let message = 'Apparently_something_is_wrong_try_again';
+        await this.alertContinueSetIdOnesignal(header, message, userAuth);
+      }
+    });
     // }
 
   }

@@ -49,8 +49,8 @@ export class AuthService {
     const password = user.password;
 
     // url
-    const url = "https://test.mimapi.club";
-    // const url = "https://mimapi.club";
+    // const url = "https://test.mimapi.club";
+    const url = "https://mimapi.club";
 
     // http get token
     return await new Promise(async (resolve, reject) => {
